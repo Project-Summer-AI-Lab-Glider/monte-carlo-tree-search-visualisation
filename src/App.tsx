@@ -7,6 +7,10 @@ import { appReducer } from './state/appReducer';
 import React, { useState } from 'react';
 import { setSyntheticLeadingComments } from 'typescript';
 
+import ExpandButtonComponent from './components/ExpandButtonComponent'
+import ComponentToTestExpandButton from './components/ComponentToTestExpandButton';
+
+
 
 const composedEnhancer = composeWithDevTools(
   compose(applyMiddleware(thunkMiddleware))
@@ -16,49 +20,14 @@ export const appStore = createStore(appReducer, composedEnhancer);
 
 
 function App() {
+  const componentToExpand = ComponentToTestExpandButton();
+
   return (
     <Provider store={appStore}>
-      <Timer
-        date={new Date()} 
-      />
+      <ExpandButtonComponent componentToExpand = {componentToExpand} />
     </Provider>
   );
 
 }
-
-
-type Test = "test" | "not--test";
-
-interface TimerProps {
-  classname?: string;
-  date: Date;
-} 
-
-function classNameFoo(foo: string) {
-
-};
-
-function Timer(props: TimerProps ) {
-  
-
-  const [time, setTime] = useState(0);
-  debugger;
-  const {
-    classname
-  } = props;
-
-  if (!!classname) {
-    classNameFoo(classname);
-  }
-
-  setTimeout(() => {
-    setTime(prev => prev + 1);
-  }, 10000)
-
-  return <div className={classname}>
-    {time}
-  </div>
-}
-
 
 export default App;
