@@ -20,7 +20,7 @@ export const appStore = createStore(appReducer, composedEnhancer);
 
 
 function App() {
-  const componentToExpand = ComponentToTestExpandButton();
+  const componentToExpand = <ComponentToTestExpandButton />;
 
   return (
     <Provider store={appStore}>

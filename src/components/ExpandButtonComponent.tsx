@@ -34,8 +34,6 @@ interface ExpandButtonComponentInterface {
 }
 
 export default function ExpandButtonComponent(props: ExpandButtonComponentInterface) {
-  console.log(props.componentToExpand);
-
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
@@ -56,15 +54,13 @@ export default function ExpandButtonComponent(props: ExpandButtonComponentInterf
 
   return (
     <div>
-      <IconButton aria-label="expand" size='small' onClick={handleOpen}>
+      <IconButton size='small' onClick={handleOpen}>
         <OpenWith />
       </IconButton>
 
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
       >
         {body}
       </Modal>
