@@ -7,6 +7,10 @@ import { appReducer } from './state/appReducer';
 import React, { useState } from 'react';
 import { setSyntheticLeadingComments } from 'typescript';
 
+import { Button } from '@material-ui/core';
+import { Toolbar } from './Components/Toolbar';
+import { Spacer } from './Components/Toolbar'
+
 
 const composedEnhancer = composeWithDevTools(
   compose(applyMiddleware(thunkMiddleware))
@@ -18,47 +22,23 @@ export const appStore = createStore(appReducer, composedEnhancer);
 function App() {
   return (
     <Provider store={appStore}>
-      <Timer
-        date={new Date()} 
-      />
+      <Toolbar>
+        <Button>
+          gyiu
+        </Button>
+        <Button>
+          yhivnofmk
+        </Button>
+        <Spacer></Spacer>
+        <Button>
+          44
+        </Button>
+      </Toolbar>
     </Provider>
   );
 
 }
 
-
-type Test = "test" | "not--test";
-
-interface TimerProps {
-  classname?: string;
-  date: Date;
-} 
-
-function classNameFoo(foo: string) {
-
-};
-
-function Timer(props: TimerProps ) {
-  
-
-  const [time, setTime] = useState(0);
-  debugger;
-  const {
-    classname
-  } = props;
-
-  if (!!classname) {
-    classNameFoo(classname);
-  }
-
-  setTimeout(() => {
-    setTime(prev => prev + 1);
-  }, 10000)
-
-  return <div className={classname}>
-    {time}
-  </div>
-}
 
 
 export default App;
