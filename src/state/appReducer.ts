@@ -1,10 +1,5 @@
-export function appReducer(
-    state: unknown,
-    action: unknown
-  ): unknown {
-      return {
-            'state': 1
-    };
+export function appReducer(): unknown {
+  return {
+    state: 1,
+  };
 }
-  
-  
