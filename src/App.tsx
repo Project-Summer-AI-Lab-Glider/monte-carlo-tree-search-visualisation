@@ -3,7 +3,13 @@ import { Provider } from "react-redux";
 import { applyMiddleware, compose, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
-import { AlgorithmVisualiationWindow, CodeEditor, Console, DockLayout } from "./components";
+import {
+  ActualStepDescription,
+  AlgorithmVisualiationWindow,
+  CodeEditor,
+  Console,
+  DockLayout,
+} from "./components";
 import { appReducer } from "./state/appReducer";
 
 const composedEnhancer = composeWithDevTools(compose(applyMiddleware(thunkMiddleware)));
@@ -16,6 +22,7 @@ function App(): JSX.Element {
       <DockLayout>
         <AlgorithmVisualiationWindow />
         <CodeEditor />
+        <ActualStepDescription />
         <Console />
       </DockLayout>
     </Provider>

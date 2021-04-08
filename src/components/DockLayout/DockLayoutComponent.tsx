@@ -1,30 +1,51 @@
-import React, { ReactChild } from "react";
-import GridLayout from "react-grid-layout";
+import React, { cloneElement, ReactElement } from "react";
+import GridLayout, { Layout, WidthProvider } from "react-grid-layout";
+import "../../../node_modules/react-grid-layout/css/styles.css";
+import "../../../node_modules/react-resizable/css/styles.css";
 
-interface DockLayoutOptions {
-  children: ReactChild[];
+const ReactGridLayout = WidthProvider(GridLayout);
+interface DockLayoutProps {
+  children: ReactElement[];
 }
 
-export function DockLayout({ children }: DockLayoutOptions): JSX.Element {
-  const rowWidth = 12;
-  const baseRowHeight = 2;
-  const colCount = 2;
-  const layout = children.map((_, index) => {
-    const x = index % colCount;
-    const y = index * baseRowHeight;
-    const layoutBase = { i: index.toString(), x, y };
-    if (index === children.length && index % colCount !== 0) {
-      return { ...layoutBase, w: rowWidth, h: baseRowHeight / 2 };
-    }
-    return { ...layoutBase, w: rowWidth / colCount, h: baseRowHeight };
-  });
+export function DockLayout({ children }: DockLayoutProps): JSX.Element {
+  const colWidth = 2;
+  const firstRowHeight = 3;
+  const secondRowHeight = 1;
+  const dockConfiguration: Layout[] = [
+    { i: "leftUpperCorner", x: 0, y: 0, w: colWidth, h: firstRowHeight, static: true },
+    { i: "rightUpperCorner", x: colWidth, y: 0, w: colWidth, h: firstRowHeight, static: true },
+    {
+      i: "leftLowerCorner",
+      x: 0,
+      y: firstRowHeight,
+      w: colWidth,
+      h: secondRowHeight,
+      static: true,
+    },
+    {
+      i: "rigthLowerCorner",
+      x: colWidth,
+      y: firstRowHeight,
+      w: colWidth,
+      h: secondRowHeight,
+      static: true,
+    },
+  ];
+
+  if (children.length > dockConfiguration.length) {
+    throw new Error(
+      `More children that allowed were passed. Allowed count is ${dockConfiguration.length}`
+    );
+  }
+
   return (
-    <GridLayout className="layout" layout={layout}>
-      {children.map((child, index) => (
-        <React.Fragment key={index.toString()} {...{ containerWidth: 1000 }}>
-          {child}
-        </React.Fragment>
-      ))}
-    </GridLayout>
+    <ReactGridLayout className="layout" layout={dockConfiguration} cols={colWidth * 2}>
+      {children.map((child, index) =>
+        cloneElement(child, {
+          key: dockConfiguration[index].i,
+        })
+      )}
+    </ReactGridLayout>
   );
 }
