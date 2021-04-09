@@ -1,33 +1,32 @@
-import './App.css';
-import { composeWithDevTools } from "redux-devtools-extension";
+import React from "react";
+import { Provider } from "react-redux";
 import { applyMiddleware, compose, createStore } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
-import { Provider } from 'react-redux';
-import { appReducer } from './state/appReducer';
-import React, { useState } from 'react';
-import { setSyntheticLeadingComments } from 'typescript';
+import {
+  ActualStepDescription,
+  AlgorithmVisualiationWindow,
+  CodeEditor,
+  Console,
+  DockLayout,
+} from "./components";
+import { appReducer } from "./state/appReducer";
 
-import ExpandButtonComponent from './components/ExpandButtonComponent'
-import ComponentToTestExpandButton from './components/ComponentToTestExpandButton';
-
-
-
-const composedEnhancer = composeWithDevTools(
-  compose(applyMiddleware(thunkMiddleware))
-);
+const composedEnhancer = composeWithDevTools(compose(applyMiddleware(thunkMiddleware)));
 
 export const appStore = createStore(appReducer, composedEnhancer);
 
-
-function App() {
-  const componentToExpand = <ComponentToTestExpandButton />;
-
+function App(): JSX.Element {
   return (
     <Provider store={appStore}>
-      <ExpandButtonComponent componentToExpand = {componentToExpand} />
+      <DockLayout>
+        <AlgorithmVisualiationWindow />
+        <CodeEditor />
+        <ActualStepDescription />
+        <Console />
+      </DockLayout>
     </Provider>
   );
-
 }
 
 export default App;
