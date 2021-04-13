@@ -9,6 +9,7 @@ import {
   CodeEditor,
   Console,
   DockLayout,
+  Header,
 } from "./components";
 import { appReducer } from "./state/appReducer";
 
@@ -19,6 +20,7 @@ export const appStore = createStore(appReducer, composedEnhancer);
 function App(): JSX.Element {
   return (
     <Provider store={appStore}>
+      <Header />
       <DockLayout>
         <AlgorithmVisualiationWindow />
         <CodeEditor />

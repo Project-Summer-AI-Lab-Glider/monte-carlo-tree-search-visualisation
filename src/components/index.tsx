@@ -3,3 +3,4 @@ export { CodeEditor } from "./CodeEditor/CodeEditorComponent";
 export { Console } from "./Console/ConsoleComponent";
 export { DockLayout } from "./DockLayout/DockLayoutComponent";
 export { ActualStepDescription } from "./ActualStepDescription/ActualStepDescriptionComponent";
+export { Header } from "./Header/HeaderComponent";
