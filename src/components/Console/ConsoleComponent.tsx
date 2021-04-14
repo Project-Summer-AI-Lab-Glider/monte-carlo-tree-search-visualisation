@@ -1,13 +1,12 @@
 import React from "react";
-import { HtmlElementProps } from "../../utlis";
-
-interface ConsoleProps extends HtmlElementProps<HTMLDivElement> {}
+import { ConsoleProps } from "./ConsoleProps";
+import { StyledConsole } from "./styles";
 
 function ConsoleF(props: ConsoleProps, ref?: React.Ref<HTMLDivElement>): JSX.Element {
   return (
-    <div {...props} ref={ref}>
+    <StyledConsole {...props} ref={ref}>
       Console component goes here
-    </div>
+    </StyledConsole>
   );
 }
 

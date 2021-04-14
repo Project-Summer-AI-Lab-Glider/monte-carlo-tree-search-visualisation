@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import { applyMiddleware, compose, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
+import { GlobalStyle } from "./App.styles";
 import {
   ActualStepDescription,
   AlgorithmVisualiationWindow,
@@ -20,6 +21,7 @@ export const appStore = createStore(appReducer, composedEnhancer);
 function App(): JSX.Element {
   return (
     <Provider store={appStore}>
+      <GlobalStyle />
       <Header />
       <DockLayout>
         <AlgorithmVisualiationWindow />

@@ -1,17 +1,17 @@
 import React, { cloneElement, ReactElement } from "react";
-import GridLayout, { Layout, WidthProvider } from "react-grid-layout";
+import { Layout } from "react-grid-layout";
 import "../../../node_modules/react-grid-layout/css/styles.css";
 import "../../../node_modules/react-resizable/css/styles.css";
+import { StyledDockLayout } from "./styles";
 
-const ReactGridLayout = WidthProvider(GridLayout);
 interface DockLayoutProps {
   children: ReactElement[];
 }
 
 export function DockLayout({ children }: DockLayoutProps): JSX.Element {
   const colWidth = 2;
-  const firstRowHeight = 3;
-  const secondRowHeight = 1;
+  const firstRowHeight = 3.5;
+  const secondRowHeight = 2;
   const dockConfiguration: Layout[] = [
     { i: "leftUpperCorner", x: 0, y: 0, w: colWidth, h: firstRowHeight, static: true },
     { i: "rightUpperCorner", x: colWidth, y: 0, w: colWidth, h: firstRowHeight, static: true },
@@ -40,12 +40,12 @@ export function DockLayout({ children }: DockLayoutProps): JSX.Element {
   }
 
   return (
-    <ReactGridLayout className="layout" layout={dockConfiguration} cols={colWidth * 2}>
+    <StyledDockLayout className="layout" layout={dockConfiguration} cols={colWidth * 2}>
       {children.map((child, index) =>
         cloneElement(child, {
           key: dockConfiguration[index].i,
         })
       )}
-    </ReactGridLayout>
+    </StyledDockLayout>
   );
 }

@@ -41,7 +41,10 @@
     "@typescript-eslint/no-use-before-define": ["error"],
     "react/destructuring-assignment": "off",
     "@typescript-eslint/no-empty-interface": "off",
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "no-useless-constructor": "off",
+    "@typescript-eslint/triple-slash-reference": "off",
+    "@typescript-eslint/no-unused-vars": "off"
   },
   "globals": {
     "React": true,

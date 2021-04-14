@@ -1,16 +1,15 @@
 import React from "react";
-import { HtmlElementProps } from "../../utlis";
-
-interface AlgorithmVisualiationWindowProps extends HtmlElementProps<HTMLDivElement> {}
+import { AlgorithmVisualiationWindowProps } from "./AlgorithmVisualiationWindowProps";
+import { StyledAlghorithmWindow } from "./styles";
 
 function AlgorithmVisualiationWindowF(
   props: AlgorithmVisualiationWindowProps,
   ref?: React.Ref<HTMLDivElement>
 ): JSX.Element {
   return (
-    <div {...props} ref={ref}>
+    <StyledAlghorithmWindow {...props} ref={ref}>
       Algorithm visualiation goes here
-    </div>
+    </StyledAlghorithmWindow>
   );
 }
 
