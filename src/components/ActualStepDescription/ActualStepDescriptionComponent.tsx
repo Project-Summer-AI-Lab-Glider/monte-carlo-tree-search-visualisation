@@ -1,16 +1,15 @@
 import React from "react";
-import { HtmlElementProps } from "../../utlis";
-
-interface ActualStepDescriptionProps extends HtmlElementProps<HTMLDivElement> {}
+import { ActualStepDescriptionProps } from "./ActualStepDescriptionProps";
+import { StyledActualStepDescription } from "./styles";
 
 function ActualStepDescriptionF(
   props: ActualStepDescriptionProps,
   ref?: React.Ref<HTMLDivElement>
 ): JSX.Element {
   return (
-    <div {...props} ref={ref}>
+    <StyledActualStepDescription {...props} ref={ref}>
       Actual step description goes here
-    </div>
+    </StyledActualStepDescription>
   );
 }
 

@@ -1,14 +1,13 @@
 import React from "react";
 import MonacoEditor from "react-monaco-editor";
-import { HtmlElementProps } from "../../utlis";
-
-interface CodeEditorProps extends HtmlElementProps<HTMLDivElement> {}
+import { CodeEditorProps } from "./CodeEditorProps";
+import { StyledCodeEditor } from "./styles";
 
 function CodeEditorF(props: CodeEditorProps, ref?: React.Ref<HTMLDivElement>): JSX.Element {
   return (
-    <div {...props} ref={ref}>
+    <StyledCodeEditor {...props} ref={ref}>
       <MonacoEditor language="typescript" />
-    </div>
+    </StyledCodeEditor>
   );
 }
 
