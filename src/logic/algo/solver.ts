@@ -7,23 +7,29 @@ export interface MonteCarloTreeSearchHyperParams {
   numIterations: number;
 }
 
-export class MonteCarloTreeSearch {
+export interface AlgorithmRunner {
+  run(root: TreeNode, hyperParams: MonteCarloTreeSearchHyperParams): TreeNode;
+  choose(node: TreeNode): null;
+  select(node: TreeNode): null;
+  expand(node: TreeNode): null;
+}
+export class MonteCarloTreeSearch implements AlgorithmRunner {
   private kernel: NonNullable<MonteCarloTreeSearchHyperParams["kernel"]> = ubcKernel;
 
-  run(node: TreeNode, hyperParams: MonteCarloTreeSearchHyperParams): TreeNode {
+  run(root: TreeNode, hyperParams: MonteCarloTreeSearchHyperParams): TreeNode {
     this.kernel = hyperParams.kernel ?? this.kernel;
     return new TreeNode();
   }
 
-  static choose(node: TreeNode): null {
+  choose(node: TreeNode): null {
     return null;
   }
 
-  static select(node: TreeNode): null {
+  select(node: TreeNode): null {
     return null;
   }
 
-  static expand(node: TreeNode): null {
+  expand(node: TreeNode): null {
     return null;
   }
 }

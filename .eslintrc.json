@@ -44,7 +44,11 @@
     "react/jsx-props-no-spreading": "off",
     "no-useless-constructor": "off",
     "@typescript-eslint/triple-slash-reference": "off",
-    "@typescript-eslint/no-unused-vars": "off"
+    "@typescript-eslint/no-unused-vars": "off",
+    "class-methods-use-this": "off",
+    "no-debugger": "off",
+    "import/order": "off",
+    "no-console": "off"
   },
   "globals": {
     "React": true,
