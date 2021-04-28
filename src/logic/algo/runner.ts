@@ -8,7 +8,6 @@ export class Runner {
     console.log("Run started with params: ", runParams);
     const tree = TreeBuilder.build(runParams);
     const solver = new MonteCarloTreeSearch();
-    console.log(solver.run(tree, runParams));
     return solver.run(tree, runParams);
   }
 }
