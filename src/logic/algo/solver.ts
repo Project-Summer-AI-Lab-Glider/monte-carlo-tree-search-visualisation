@@ -60,19 +60,21 @@ export class MonteCarloTreeSearch implements Solver {
       if (!this.nodeChildren.has(node)) {
         return path;
       }
-      if (this.nodeChildren.get(node)!.length === 0) {
+      if (this.nodeChildren.get(node) ?? [].length === 0) {
         return path;
       }
-      let unexploredNodes: Array<TreeNode> = this.nodeChildren.get(node)!;
+      let unexploredNodes: Array<TreeNode> = this.nodeChildren.get(node) ?? [];
       unexploredNodes = unexploredNodes.filter(
         (unexploredNode) => !this.nodeChildren.has(unexploredNode)
       );
       if (unexploredNodes.length > 0) {
-        const n: TreeNode = unexploredNodes.pop()!;
-        path.push(n);
+        const n: TreeNode | undefined = unexploredNodes.pop();
+        if (n) {
+          path.push(n);
+        }
         return path;
       }
-      node = this.uctSelect(node)!;
+      node = this.uctSelect(node);
     }
   }
 
@@ -84,7 +86,7 @@ export class MonteCarloTreeSearch implements Solver {
     if (!this.nodeChildren.has(node)) {
       return node.findRandomChild();
     }
-    return Array.from(this.nodeChildren.get(node)!).reduce((prev, current) =>
+    return Array.from(this.nodeChildren.get(node) ?? []).reduce((prev, current) =>
       this.score(prev) > this.score(current) ? prev : current
     );
   }
@@ -93,7 +95,7 @@ export class MonteCarloTreeSearch implements Solver {
     if (node.children.length === 0) {
       return Number.NEGATIVE_INFINITY;
     }
-    return this.nodeRewards.get(node)! / this.nodeVisits.get(node)!;
+    return this.nodeRewards.get(node) ?? 0 / (this.nodeVisits.get(node) ?? 1);
   }
 
   expand(node: TreeNode): void {
@@ -120,25 +122,25 @@ export class MonteCarloTreeSearch implements Solver {
     }
   }
 
-  uctSelect(node: TreeNode): TreeNode | undefined {
-    const isAllChildrenExpanded = this.nodeChildren
-      .get(node)!
-      .some((singleNode) => this.nodeChildren.has(singleNode));
+  uctSelect(node: TreeNode): TreeNode {
+    const isAllChildrenExpanded =
+      this.nodeChildren.get(node) ?? [].some((singleNode) => this.nodeChildren.has(singleNode));
 
     if (!isAllChildrenExpanded) {
-      return undefined;
+      throw Error("Selection is available only from fully expanded node!");
     }
-    const visitsOfParent = this.nodeVisits.get(node);
-    return Array.from(this.nodeChildren.get(node)!).reduce((prev, current) =>
-      this.calcKernel(prev, visitsOfParent!) > this.calcKernel(current, visitsOfParent!)
+    const visitsOfParent: number = this.nodeVisits.get(node) ?? 1;
+    return Array.from(this.nodeChildren.get(node) ?? []).reduce((prev, current) =>
+      this.calcKernel(prev, visitsOfParent) > this.calcKernel(current, visitsOfParent)
         ? prev
         : current
     );
   }
 
   calcKernel(childNode: TreeNode, visitsOfParent: number): number {
-    const meanNodeValue = this.nodeRewards.get(childNode)! / this.nodeVisits.get(childNode)!;
-    const visitsOfNode = this.nodeVisits.get(childNode)!;
+    const meanNodeValue =
+      this.nodeRewards.get(childNode) ?? 0 / (this.nodeVisits.get(childNode) ?? 1);
+    const visitsOfNode = this.nodeVisits.get(childNode) ?? 1;
     return ubcKernel(meanNodeValue, visitsOfNode, visitsOfParent);
   }
 }
