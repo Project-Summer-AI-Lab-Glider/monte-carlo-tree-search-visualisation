@@ -31,9 +31,9 @@ export class MonteCarloTreeSearch implements Solver {
 
   run(root: TreeNode, hyperParams: MonteCarloTreeSearchHyperParams): TreeNode {
     while (true) {
-       _.range(0, hyperParams.numIterations).forEach(() => {
+      _.range(0, hyperParams.numIterations).forEach(() => {
         this.singleRun(root, hyperParams);
-      })
+      });
       root = this.choose(root);
       if (root.children.length === 0) {
         return root;
@@ -60,7 +60,7 @@ export class MonteCarloTreeSearch implements Solver {
       if (!this.nodeChildren.has(node)) {
         return path;
       }
-      if (this.nodeChildren.get(node) ?? [].length === 0) {
+      if ((this.nodeChildren.get(node) ?? []).length === 0) {
         return path;
       }
       let unexploredNodes: Array<TreeNode> = this.nodeChildren.get(node) ?? [];
@@ -123,8 +123,9 @@ export class MonteCarloTreeSearch implements Solver {
   }
 
   uctSelect(node: TreeNode): TreeNode {
-    const isAllChildrenExpanded =
-      this.nodeChildren.get(node) ?? [].some((singleNode) => this.nodeChildren.has(singleNode));
+    const isAllChildrenExpanded = (this.nodeChildren.get(node) ?? []).every((singleNode) =>
+      this.nodeChildren.has(singleNode)
+    );
 
     if (!isAllChildrenExpanded) {
       throw Error("Selection is available only from fully expanded node!");
@@ -141,6 +142,6 @@ export class MonteCarloTreeSearch implements Solver {
     const meanNodeValue =
       this.nodeRewards.get(childNode) ?? 0 / (this.nodeVisits.get(childNode) ?? 1);
     const visitsOfNode = this.nodeVisits.get(childNode) ?? 1;
-    return ubcKernel(meanNodeValue, visitsOfNode, visitsOfParent);
+    return this.kernel(meanNodeValue, visitsOfNode, visitsOfParent);
   }
 }
