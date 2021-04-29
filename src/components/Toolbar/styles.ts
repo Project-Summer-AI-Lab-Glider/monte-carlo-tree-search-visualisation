@@ -11,7 +11,7 @@ export const StyledToolbar = styled(GridItem)<ToolbarProps>`
 
 const btnColor = "#fabf18";
 export const RunButton = styled(Button)`
-  width: 150px;
+  width: 180px;
   color: ${btnColor};
   &&& {
     border: 4px solid ${btnColor};
@@ -22,8 +22,8 @@ export const RunButton = styled(Button)`
     vertical-align: center;
     padding: 6px;
     outline: none;
-    font-size: 16px;
-    letter-spacing: 0.5px;
+    font-size: 14px;
+    letter-spacing: 0.3px;
     justify-content: flex-start;
     border-radius: 0px;
   }
@@ -32,6 +32,6 @@ export const RunButton = styled(Button)`
 export const RunCodeIcon = styled(PlayArrowIcon)`
   color: ${btnColor};
   &&& {
-    font-size: 30px;
+    font-size: 26px;
   }
 `;

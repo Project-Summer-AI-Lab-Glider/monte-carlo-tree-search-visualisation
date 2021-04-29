@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Runner, RunParams } from "../../logic/algo/runner";
+import { AlgorithmRunner, AlghorithmRunParams } from "../algo/runner";
 import {
   AlgorithmCommand,
   ConsoleCommand,
@@ -8,20 +8,13 @@ import {
 } from "./consoleCommands";
 
 export class ConsoleLogic {
-  static execute(command: string): void {
-    const commandObj = this.parseCommand(command);
-    if (_.isNil(commandObj)) {
-      return;
-    }
-    this.executeCommand(commandObj);
-  }
-
-  private static parseCommand(command: string) {
+  static parseCommand(command: string): ConsoleCommand | undefined {
     const [commandName, commandArgsString] = command
-      .replace(" ", "")
+      .replace(/ /g, "")
       .replace(/[()]/g, " ")
       .split(" ");
     const commandArgs = commandArgsString.split(",");
+
     switch (commandName) {
       case AlgorithmCommand.RunAlgorithm:
         return this.parseRunAlgorithmCommand(commandArgs);
@@ -31,7 +24,10 @@ export class ConsoleLogic {
   }
 
   private static parseRunAlgorithmCommand(tokens: string[]): RunAlgortimCommand {
-    const hyperParams: Omit<RunParams, "kernel"> = {} as Omit<RunParams, "kernel">;
+    const hyperParams: Omit<AlghorithmRunParams, "kernel"> = {} as Omit<
+      AlghorithmRunParams,
+      "kernel"
+    >;
     RunAlgortimCommandParamOrder.forEach((paramName, idx) => {
       hyperParams[paramName] = parseInt(tokens[idx], 10);
     });
@@ -39,15 +35,5 @@ export class ConsoleLogic {
       code: AlgorithmCommand.RunAlgorithm,
       runParams: hyperParams,
     };
-  }
-
-  private static executeCommand(command: ConsoleCommand) {
-    switch (command.code) {
-      case AlgorithmCommand.RunAlgorithm:
-        Runner.run(command.runParams);
-        break;
-      default:
-        break;
-    }
   }
 }

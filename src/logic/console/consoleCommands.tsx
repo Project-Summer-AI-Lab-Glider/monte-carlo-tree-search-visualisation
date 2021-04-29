@@ -1,6 +1,6 @@
 import { monaco } from "react-monaco-editor";
-import { RunParams } from "../../logic/algo/runner";
-import { StepToImplementName } from "../../logic/algo/solver";
+import { AlghorithmRunParams } from "../algo/runner";
+import { StepToImplementName } from "../algo/solver";
 
 export enum AlgorithmCommand {
   RunAlgorithm = "run_algo",
@@ -13,10 +13,10 @@ export enum TestType {
 // #region Run algo
 export interface RunAlgortimCommand {
   code: AlgorithmCommand.RunAlgorithm;
-  runParams: RunParams;
+  runParams: AlghorithmRunParams;
 }
 
-export const RunAlgortimCommandParamOrder: (keyof Omit<RunParams, "kernel">)[] = [
+export const RunAlgortimCommandParamOrder: (keyof Omit<AlghorithmRunParams, "kernel">)[] = [
   "branchFactor",
   "numIterations",
   "numRollout",
@@ -27,7 +27,7 @@ export const RunAlghorithmCompletion = {
   label: AlgorithmCommand.RunAlgorithm,
   kind: monaco.languages.CompletionItemKind.Function,
   insertText: `${AlgorithmCommand.RunAlgorithm}(${RunAlgortimCommandParamOrder.map(
-    (paramName, idx) => `\${${idx}:${paramName}}`
+    (paramName, idx) => `\${${idx + 1}:${paramName}}`
   ).join(", ")})`,
   insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
 };

@@ -1,5 +1,5 @@
 import { monaco } from "react-monaco-editor";
-import { RunAlghorithmCompletion } from "./consoleCommands";
+import { RunAlghorithmCompletion } from "../../logic/console/consoleCommands";
 import { CONSOLE_SYNTAX } from "./consoleSyntaxConfig";
 
 export function initCompletion(): void {

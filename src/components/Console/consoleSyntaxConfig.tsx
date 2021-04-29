@@ -30,7 +30,6 @@ export function initSyntax(): void {
       ],
     },
     ignoreCase: false,
-    defaultToken: "invalid",
     brackets: [
       {
         open: "(",

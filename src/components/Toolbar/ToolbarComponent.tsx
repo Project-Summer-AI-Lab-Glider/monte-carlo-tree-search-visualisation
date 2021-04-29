@@ -1,20 +1,15 @@
 import React from "react";
-import { Runner } from "../../logic/algo/runner";
+import { useAlgorithmRunner } from "../../hooks/useAlghorithmRunner";
 import { RunButton, RunCodeIcon, StyledToolbar } from "./styles";
 import { ToolbarProps } from "./ToolbarProps";
 
 function ToolbarF(props: ToolbarProps, ref?: React.Ref<HTMLDivElement>): JSX.Element {
-  const algoHyperParams = {
-    branchFactor: 8,
-    treeDepth: 5,
-    numRollout: 5,
-    numIterations: 5,
-  };
+  const [repeatLastRun] = useAlgorithmRunner();
   return (
     <StyledToolbar {...props} ref={ref}>
-      <RunButton onClick={() => Runner.run(algoHyperParams)}>
+      <RunButton onClick={repeatLastRun}>
         <RunCodeIcon />
-        <span>Run code</span>
+        <span>Repeat last run</span>
       </RunButton>
     </StyledToolbar>
   );
