@@ -3,6 +3,7 @@ import { TreeNode } from "../treeBuilder/treeNode";
 import { MonteCarloTreeSearch, MonteCarloTreeSearchHyperParams } from "./solver";
 
 export type RunParams = TreeBuildParams & MonteCarloTreeSearchHyperParams;
+
 export class Runner {
   static run(runParams: RunParams): TreeNode {
     console.log("Run started with params: ", runParams);

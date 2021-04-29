@@ -52,7 +52,11 @@
     "no-param-reassign": "off",
     "import/no-extraneous-dependencies": "off",
     "no-constant-condition": "off",
-    "no-loop-func": "off"
+    "no-loop-func": "off",
+    "no-shadow": "off",
+    "no-template-curly-in-string": "off",
+    "no-useless-escape": "off",
+    "spaced-comment": "warn"
   },
   "globals": {
     "React": true,
