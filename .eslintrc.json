@@ -53,6 +53,7 @@
     "import/no-extraneous-dependencies": "off",
     "no-constant-condition": "off",
     "no-loop-func": "off",
+    "react/require-default-props": "off",
     "no-shadow": "off",
     "no-template-curly-in-string": "off",
     "no-useless-escape": "off",
