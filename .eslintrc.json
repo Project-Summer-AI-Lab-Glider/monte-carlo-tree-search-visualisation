@@ -48,7 +48,11 @@
     "class-methods-use-this": "off",
     "no-debugger": "off",
     "import/order": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "no-param-reassign": "off",
+    "import/no-extraneous-dependencies": "off",
+    "no-constant-condition": "off",
+    "no-loop-func": "off"
   },
   "globals": {
     "React": true,

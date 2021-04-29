@@ -5,10 +5,10 @@ import { ToolbarProps } from "./ToolbarProps";
 
 function ToolbarF(props: ToolbarProps, ref?: React.Ref<HTMLDivElement>): JSX.Element {
   const algoHyperParams = {
-    branchFactor: 3,
-    treeDepth: 3,
-    numRollout: 1,
-    numIterations: 1,
+    branchFactor: 8,
+    treeDepth: 5,
+    numRollout: 5,
+    numIterations: 5,
   };
   return (
     <StyledToolbar {...props} ref={ref}>
