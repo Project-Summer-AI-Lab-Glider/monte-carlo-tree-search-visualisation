@@ -9,7 +9,7 @@ export interface MonteCarloTreeSearchHyperParams {
 
 export interface Solver {
   run(root: TreeNode, hyperParams: MonteCarloTreeSearchHyperParams): TreeNode;
-  select(node: TreeNode): Array<TreeNode>;
+  select(node: TreeNode): TreeNode[];
   choose(node: TreeNode): TreeNode;
   expand(node: TreeNode): void;
 }
@@ -31,9 +31,9 @@ export class MonteCarloTreeSearch implements Solver {
 
   run(root: TreeNode, hyperParams: MonteCarloTreeSearchHyperParams): TreeNode {
     while (true) {
-      for (let i = 0; i < hyperParams.numIterations; i += 1) {
+       _.range(0, hyperParams.numIterations).forEach(() => {
         this.singleRun(root, hyperParams);
-      }
+      })
       root = this.choose(root);
       if (root.children.length === 0) {
         return root;
@@ -68,9 +68,9 @@ export class MonteCarloTreeSearch implements Solver {
         (unexploredNode) => !this.nodeChildren.has(unexploredNode)
       );
       if (unexploredNodes.length > 0) {
-        const n: TreeNode | undefined = unexploredNodes.pop();
-        if (n) {
-          path.push(n);
+        const unexploredNode: TreeNode | undefined = unexploredNodes.pop();
+        if (unexploredNode) {
+          path.push(unexploredNode);
         }
         return path;
       }
