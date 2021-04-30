@@ -28,9 +28,16 @@ const myConfig = {
   },
 };
 
-export function GraphVis({ data }: any) {
+export function GraphVis({
+  data,
+}: {
+  data: {
+    nodes: { id: string; x: number; y: number }[];
+    links: { source: string; target: string }[];
+  };
+}): JSX.Element {
   const dataModified = data;
-  dataModified.nodes = data.nodes.map((n: { id: string; x: any; y: any }) => ({
+  dataModified.nodes = data.nodes.map((n: { id: string; x: number; y: number }) => ({
     ...{
       id: n.id,
       // unfortunately cannot automatically locate nodes RN
