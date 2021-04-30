@@ -1,6 +1,14 @@
 export function TheoryContent(): JSX.Element {
   return (
-    <>
+    <div
+      style={{
+        margin: "10px",
+        padding: "5px",
+        border: "4px solid #EEEEEE",
+        overflowY: "scroll",
+        height: "50vh",
+      }}
+    >
       <h2>Monte Carlo Tree Search</h2>
       <p>
         Monte Carlo Tree Search is a heuristic search algorithm. It is used in decision processes
@@ -10,7 +18,7 @@ export function TheoryContent(): JSX.Element {
       </p>
       <h3>How to Monte Carlo?</h3>
       <p>
-        Let’s imagine that we have a tree (like this one on your right hand). The main goal of MCTS
+        Let’s imagine that we have a tree (like this one on your left hand). The main goal of MCTS
         is to decide about the next step. So if we are in the root, algorithm help us choose
         (probably) the best child node to go. Consequently, algorithm finds the most profitable path
         in the tree. Knowing the compute power and time limit, we can determine how precisely an
@@ -34,26 +42,26 @@ export function TheoryContent(): JSX.Element {
       </p>
       <ol>
         <li>
-          Selection - we are in the root (it’s a root of currently considering subtree). Now
-          according to the tree policy we choose one of the child nodes. Temporary it’s our leaf
-          node.
+          <strong>Selection</strong> - we are in the root (it’s a root of currently considering
+          subtree). Now according to the tree policy we choose one of the child nodes. Temporary
+          it’s our leaf node.
         </li>
         <li>
-          Expansion - we have the leaf node. Now we have to make a note of this node and its
-          children in the nodeChildren structure.
+          <strong>Expansion</strong> - we have the leaf node. Now we have to make a note of this
+          node and its children in the nodeChildren structure.
         </li>
         <li>
-          Simulation - we have the leaf node and know its children. Score for this leaf node is
-          assumed as zero right now. We want to know its real score. So let’s make a random
-          simulation! We dive into the tree, randomly picking the next node among its children. If
-          the current node is terminal, we update the score.
+          <strong>Simulation</strong> - we have the leaf node and know its children. Score for this
+          leaf node is assumed as zero right now. We want to know its real score. So let’s make a
+          random simulation! We dive into the tree, randomly picking the next node among its
+          children. If the current node is terminal, we update the score.
         </li>
         <li>
-          Backup - after numRollout simulations we increment the nodeVisits for the leaf node and
-          update the nodeRewards.
+          <strong>Backup</strong> - after numRollout simulations we increment the nodeVisits for the
+          leaf node and update the nodeRewards.
         </li>
       </ol>
       <p>After numIterations times of this process it’s possible to predict the best path to go!</p>
-    </>
+    </div>
   );
 }

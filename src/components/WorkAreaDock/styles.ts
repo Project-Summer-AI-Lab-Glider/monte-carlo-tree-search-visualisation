@@ -4,7 +4,7 @@ import { CodeEditorProps } from "./CodeEditorProps";
 import Tabs from "@material-ui/core/Tabs";
 
 export const StyledWorkArea = styled(GridItem)<CodeEditorProps>`
-  min-height: 80vh;
+  height: 40vh;
 `;
 
 export const TabHeader = styled(Tabs)`

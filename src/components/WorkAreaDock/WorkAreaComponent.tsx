@@ -30,7 +30,7 @@ function WorkAreaDockF(props: CodeEditorProps, ref?: React.Ref<HTMLDivElement>):
         <Tab
           label={
             <>
-              <span>
+              <span style={{ marginRight: 10 }}>
                 <Code />
               </span>
               <span>Code</span>
@@ -40,7 +40,7 @@ function WorkAreaDockF(props: CodeEditorProps, ref?: React.Ref<HTMLDivElement>):
         <Tab
           label={
             <>
-              <span>
+              <span style={{ marginRight: 10 }}>
                 <LibraryBooks />
               </span>
               <span>Theory</span>
