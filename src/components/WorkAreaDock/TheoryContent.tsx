@@ -25,15 +25,6 @@ export function TheoryContent(): JSX.Element {
         algorithm should calc this probability. Obviously - the more power and time, the higher
         precision.
       </p>
-      <h3>How it works?</h3>
-      <p>
-        Let’s imagine that we have a tree (like this one on your right hand). The main goal of MCTS
-        is to decide about the next step. So if we are in the root, algorithm help us choose
-        (probably) the best child node to go. Consequently, algorithm finds the most profitable path
-        in the tree. Knowing the compute power and time limit, we can determine how precisely an
-        algorithm should calc this probability. Obviously - the more power and time, the higher
-        precision.
-      </p>
       <p>
         At the beginning we have to assume that we know the current number of visits (nodeVisits),
         the currently predicted reward (nodeRewards) and children (nodeChildren) for each already
