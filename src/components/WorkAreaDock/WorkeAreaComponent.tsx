@@ -27,8 +27,26 @@ function WorkAreaDockF(props: CodeEditorProps, ref?: React.Ref<HTMLDivElement>):
   return (
     <StyledWorkArea {...props} ref={ref}>
       <TabHeader value={value} onChange={handleChange} aria-label="styled tabs example">
-        <Tab icon={<Code />} label="Code" />
-        <Tab icon={<LibraryBooks />} label="Theory" />
+        <Tab
+          label={
+            <>
+              <span>
+                <Code />
+              </span>
+              <span>Code</span>
+            </>
+          }
+        />
+        <Tab
+          label={
+            <>
+              <span>
+                <LibraryBooks />
+              </span>
+              <span>Theory</span>
+            </>
+          }
+        />
       </TabHeader>
 
       <TabPanel value={value} index={0}>

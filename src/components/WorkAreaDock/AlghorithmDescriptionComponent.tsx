@@ -1,3 +1,9 @@
+// import {ScrollBox, ScrollAxes, FastTrack} from 'react-scroll-box';
+import { TheoryContent } from "../../assets/TheoryContent";
+
 export function AlgorithmDescription(): JSX.Element {
-  return <p>Theory goes here</p>;
+  // <ScrollBox axes={ScrollAxes.Y} fastTrack={FastTrack.PAGING}>
+  //   <TheoryContent/>
+  // </ScrollBox>
+  return <TheoryContent />;
 }

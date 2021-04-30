@@ -17,5 +17,9 @@ export const TabHeader = styled(Tabs)`
       width: 100%;
       background-color: #635ee7;
     }
+    & .MuiTab-wrapper {
+      display: flex;
+      flex-direction: row;
+    }
   }
 `;
