@@ -4,6 +4,7 @@ import { AlgorithmDescription } from "./AlghorithmDescriptionComponent";
 import { CodeEditor } from "./CodeEditorComponent";
 import { CodeEditorProps } from "./CodeEditorProps";
 import { StyledWorkArea, TabHeader } from "./styles";
+import { LibraryBooks, Code } from "@material-ui/icons";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -26,8 +27,26 @@ function WorkAreaDockF(props: CodeEditorProps, ref?: React.Ref<HTMLDivElement>):
   return (
     <StyledWorkArea {...props} ref={ref}>
       <TabHeader value={value} onChange={handleChange} aria-label="styled tabs example">
-        <Tab label="Code" />
-        <Tab label="Theory" />
+        <Tab
+          label={
+            <>
+              <span style={{ marginRight: 10 }}>
+                <Code />
+              </span>
+              <span>Code</span>
+            </>
+          }
+        />
+        <Tab
+          label={
+            <>
+              <span style={{ marginRight: 10 }}>
+                <LibraryBooks />
+              </span>
+              <span>Theory</span>
+            </>
+          }
+        />
       </TabHeader>
 
       <TabPanel value={value} index={0}>

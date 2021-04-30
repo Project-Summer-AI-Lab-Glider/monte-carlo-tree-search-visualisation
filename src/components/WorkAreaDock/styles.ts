@@ -4,7 +4,7 @@ import { CodeEditorProps } from "./CodeEditorProps";
 import Tabs from "@material-ui/core/Tabs";
 
 export const StyledWorkArea = styled(GridItem)<CodeEditorProps>`
-  min-height: 80vh;
+  height: 40vh;
 `;
 
 export const TabHeader = styled(Tabs)`
@@ -16,6 +16,10 @@ export const TabHeader = styled(Tabs)`
       max-width: 40px;
       width: 100%;
       background-color: #635ee7;
+    }
+    & .MuiTab-wrapper {
+      display: flex;
+      flex-direction: row;
     }
   }
 `;
