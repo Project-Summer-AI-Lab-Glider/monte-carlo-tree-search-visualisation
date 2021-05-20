@@ -1,6 +1,6 @@
 import React from "react";
 import { AlgorithmRunMode, useAlgorithmRunner } from "../../hooks/useAlghorithmRunner";
-import { RunButton, RunCodeIcon, StyledToolbar } from "./styles";
+import { NextButton, NextStepIcon, RunButton, RunCodeIcon, StyledToolbar } from "./styles";
 import { ToolbarProps } from "./ToolbarProps";
 
 function ToolbarF(props: ToolbarProps, ref?: React.Ref<HTMLDivElement>): JSX.Element {
@@ -11,6 +11,11 @@ function ToolbarF(props: ToolbarProps, ref?: React.Ref<HTMLDivElement>): JSX.Ele
         <RunCodeIcon />
         <span>Repeat last run</span>
       </RunButton>
+
+      <NextButton onClick={repeatLastRun}>
+        <NextStepIcon />
+        <span>Next step</span>
+      </NextButton>
     </StyledToolbar>
   );
 }
