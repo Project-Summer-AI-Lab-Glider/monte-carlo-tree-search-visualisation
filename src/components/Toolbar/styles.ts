@@ -11,18 +11,20 @@ export const StyledToolbar = styled(GridItem)<ToolbarProps>`
 
 const btnColor = "#fabf18";
 export const RunButton = styled(Button)`
-  width: 180px;
+  width: 150px;
+  height: 30px;
   color: ${btnColor};
   &&& {
+    margin: 10px;
     border: 4px solid ${btnColor};
     color: ${btnColor};
     background-color: white;
     text-align: center;
     display: flex;
     vertical-align: center;
-    padding: 6px;
+    padding: 3px;
     outline: none;
-    font-size: 14px;
+    font-size: 12px;
     letter-spacing: 0.3px;
     justify-content: flex-start;
     border-radius: 0px;
