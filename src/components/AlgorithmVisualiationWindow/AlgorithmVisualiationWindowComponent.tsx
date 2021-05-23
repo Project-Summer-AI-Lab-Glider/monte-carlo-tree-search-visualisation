@@ -1,22 +1,30 @@
 import React from "react";
 import { AlgorithmVisualiationWindowProps } from "./AlgorithmVisualiationWindowProps";
 import { StyledAlghorithmWindow } from "./styles";
-import { GraphVis } from "../GraphComponent";
+import { GraphVis, GraphData } from "../GraphVisualization/GraphComponent";
 
 // added it here only to pass as argument
-const exampleData = {
+const exampleData: GraphData = {
   nodes: [
-    { id: "Node1", x: 350, y: 100 },
-    { id: "Node2", x: 250, y: 220 },
-    { id: "Node3", x: 380, y: 340 },
-    { id: "Node4", x: 450, y: 220 },
-    { id: "Node5", x: 520, y: 340 },
+    { id: "Node1" },
+    { id: "Node2" },
+    { id: "Node3" },
+    { id: "Node4" },
+    { id: "Node5" },
+    { id: "Node6" },
+    { id: "Node7" },
+    { id: "Node8" },
+    { id: "Node9" },
   ],
   links: [
     { source: "Node1", target: "Node2" },
     { source: "Node1", target: "Node4" },
     { source: "Node4", target: "Node3" },
     { source: "Node4", target: "Node5" },
+    { source: "Node4", target: "Node6" },
+    { source: "Node5", target: "Node7" },
+    { source: "Node5", target: "Node8" },
+    { source: "Node2", target: "Node9" },
   ],
 };
 

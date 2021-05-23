@@ -43,8 +43,10 @@
     "@typescript-eslint/no-empty-interface": "off",
     "react/jsx-props-no-spreading": "off",
     "no-useless-constructor": "off",
-    "@typescript-eslint/triple-slash-reference": "off",
-    "@typescript-eslint/no-unused-vars": "off"
+    "no-param-reassign": [
+      "error",
+      { "props": true, "ignorePropertyModificationsFor": ["toNode", "node", "visited", "child"] }
+    ]
   },
   "globals": {
     "React": true,
