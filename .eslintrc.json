@@ -43,10 +43,22 @@
     "@typescript-eslint/no-empty-interface": "off",
     "react/jsx-props-no-spreading": "off",
     "no-useless-constructor": "off",
-    "no-param-reassign": [
-      "error",
-      { "props": true, "ignorePropertyModificationsFor": ["toNode", "node", "visited", "child"] }
-    ]
+    "@typescript-eslint/triple-slash-reference": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "class-methods-use-this": "off",
+    "no-debugger": "off",
+    "import/order": "off",
+    "no-console": "off",
+    "no-param-reassign": "off",
+    "import/no-extraneous-dependencies": "off",
+    "no-constant-condition": "off",
+    "no-loop-func": "off",
+    "react/require-default-props": "off",
+    "no-shadow": "off",
+    "no-template-curly-in-string": "off",
+    "no-useless-escape": "off",
+    "spaced-comment": "warn",
+    "@typescript-eslint/no-non-null-assertion": "off"
   },
   "globals": {
     "React": true,
