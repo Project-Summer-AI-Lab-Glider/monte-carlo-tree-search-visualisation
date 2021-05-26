@@ -1,9 +1,12 @@
 import { Opaque } from "../../utlis";
-import { StepToImplementName } from "../algo/solver";
+import { Solver, StepToImplementName } from "../algo/solver";
 
-export const UserDefinedClassName = "AlgorithmRunner";
+export const UserSolverName = "UserAlgorithmRunner";
 export type TODO = Opaque<"TODO", string>;
 
+export type UserSolver = {
+  new (): Solver;
+};
 export function StringifyAlghorytm({
   choose,
   expand,
@@ -34,7 +37,7 @@ export function StringifyAlghorytm({
     
   type StepToImplementName = keyof Solver;
   
-  class ${UserDefinedClassName} {
+  class ${UserSolverName} {
    
     private nodeRewards: Map<TreeNode, number> = new Map();
   
