@@ -9,7 +9,6 @@ async function main() {
   const results = await eslint.lintFiles(["src/**/?*.{ts,tsx}"]);
   const formatter = await eslint.loadFormatter("stylish");
   const resultText = formatter.format(results);
-  console.log(resultText);
   const warningsCount = results.reduce((acc, result) => result.warningCount + acc, 0);
   if (warningsCount !== MAX_WARNINGS_COUNT) {
     process.exitCode = OPERATION_FAILED_CODE;      

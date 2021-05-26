@@ -11,24 +11,34 @@ interface DockLayoutProps {
 export function DockLayout({ children }: DockLayoutProps): JSX.Element {
   const colWidth = 2;
   const firstRowHeight = 3.5;
-  const secondRowHeight = 2;
+  const secondRowHeight = 0.3;
+  const thirdRowHeight = 2;
   const dockConfiguration: Layout[] = [
     { i: "leftUpperCorner", x: 0, y: 0, w: colWidth, h: firstRowHeight, static: true },
     { i: "rightUpperCorner", x: colWidth, y: 0, w: colWidth, h: firstRowHeight, static: true },
+    { i: "leftMiddlePart", x: 0, y: firstRowHeight, w: colWidth, h: secondRowHeight, static: true },
     {
-      i: "leftLowerCorner",
-      x: 0,
+      i: "rightMiddlePart",
+      x: colWidth,
       y: firstRowHeight,
       w: colWidth,
       h: secondRowHeight,
       static: true,
     },
     {
+      i: "leftLowerCorner",
+      x: 0,
+      y: firstRowHeight + secondRowHeight,
+      w: colWidth,
+      h: thirdRowHeight,
+      static: true,
+    },
+    {
       i: "rigthLowerCorner",
       x: colWidth,
-      y: firstRowHeight,
+      y: firstRowHeight + secondRowHeight,
       w: colWidth,
-      h: secondRowHeight,
+      h: thirdRowHeight,
       static: true,
     },
   ];

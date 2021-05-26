@@ -57,8 +57,11 @@
     "no-shadow": "off",
     "no-template-curly-in-string": "off",
     "no-useless-escape": "off",
-    "spaced-comment": "warn",
     "@typescript-eslint/no-non-null-assertion": "off"
+    "spaced-comment": "off",
+    "react/button-has-type": "off",
+    "no-cond-assign": "off",
+    "no-eval": "off"
   },
   "globals": {
     "React": true,

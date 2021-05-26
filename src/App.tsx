@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import { applyMiddleware, compose, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -12,6 +12,7 @@ import {
   DockLayout,
   Header,
 } from "./components";
+import { Toolbar } from "./components/Toolbar/ToolbarComponent";
 import { appReducer } from "./state/appReducer";
 
 const composedEnhancer = composeWithDevTools(compose(applyMiddleware(thunkMiddleware)));
@@ -26,6 +27,8 @@ function App(): JSX.Element {
       <DockLayout>
         <AlgorithmVisualiationWindow />
         <CodeEditor />
+        <div />
+        <Toolbar />
         <ActualStepDescription />
         <Console />
       </DockLayout>
