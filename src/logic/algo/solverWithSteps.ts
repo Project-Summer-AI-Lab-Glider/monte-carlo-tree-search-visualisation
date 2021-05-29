@@ -1,26 +1,15 @@
 import { TreeNode } from "../treeBuilder/treeNode";
 import { ubcKernel } from "./kernels";
 
+import * as _ from "lodash";
+
 export interface MonteCarloTreeSearchHyperParams {
   kernel?: (meanNodeValue: number, visitsOfNode: number, visitsOfParent: number) => number;
   numRollout: number;
   numIterations: number;
 }
 
-export interface Solver {
-  run(root: TreeNode, hyperParams: MonteCarloTreeSearchHyperParams): TreeNode;
-  select(node: TreeNode): TreeNode[];
-  choose(node: TreeNode): TreeNode;
-  expand(node: TreeNode): void;
-}
-
-export type SolverFunction = {
-  [key in keyof Solver]: Solver[key];
-}[keyof Solver];
-
-export type StepToImplementName = keyof Solver;
-
-export class MonteCarloTreeSearch implements Solver {
+export class MonteCarloTreeSearch {
   private kernel: NonNullable<MonteCarloTreeSearchHyperParams["kernel"]> = ubcKernel;
 
   private nodeRewards: Map<TreeNode, number> = new Map();
@@ -29,43 +18,49 @@ export class MonteCarloTreeSearch implements Solver {
 
   private nodeChildren: Map<TreeNode, Array<TreeNode>> = new Map();
 
-  *run(root: TreeNode, hyperParams: MonteCarloTreeSearchHyperParams): TreeNode {
+  // eslint-disable-next-line
+  *run(root: TreeNode, hyperParams: MonteCarloTreeSearchHyperParams) {
     while (true) {
-      _.range(0, hyperParams.numIterations).forEach(() => {
-        yield * this.singleRun(root, hyperParams);
-      });
+      for (const i of _.range(0, hyperParams.numIterations)) {
+        yield* this.singleRun(root, hyperParams);
+      }
+
       root = this.choose(root);
       if (root.children.length === 0) {
-        return root;
+        yield root;
       }
     }
   }
 
+  // eslint-disable-next-line
   *singleRun(root: TreeNode, hyperParams: MonteCarloTreeSearchHyperParams) {
     this.kernel = hyperParams.kernel ?? this.kernel;
-    const path = this.select(root);
+
+    const path: TreeNode[] = [];
+    yield* this.select(root, path);
 
     const leaf = path[path.length - 1];
-    this.expand(leaf);
+    yield* this.expand(leaf);
 
-    let reward = 0;
-    for (let i = 0; i < hyperParams.numRollout; i += 1) {
-      reward += this.simulate(leaf);
-    }
+    const reward = 0;
+    yield* this.simulateNumRolloutsTimes(leaf, hyperParams.numRollout, reward);
 
-    this.backup(path, reward);
+    yield* this.backup(path, reward);
+
     yield;
   }
 
-  select(node: TreeNode): Array<TreeNode> {
-    const path: Array<TreeNode> = [];
+  // eslint-disable-next-line
+  *select(node: TreeNode, path: TreeNode[]) {
+    console.log("I'm in select!");
+    console.log(this.nodeRewards);
     while (true) {
       path.push(node);
       if (!this.nodeChildren.has(node)) {
-        return path;
+        break;
       }
       if ((this.nodeChildren.get(node) ?? []).length === 0) {
-        return path;
+        break;
       }
       let unexploredNodes: Array<TreeNode> = this.nodeChildren.get(node) ?? [];
       unexploredNodes = unexploredNodes.filter(
@@ -76,10 +71,11 @@ export class MonteCarloTreeSearch implements Solver {
         if (unexploredNode) {
           path.push(unexploredNode);
         }
-        return path;
+        break;
       }
       node = this.uctSelect(node);
     }
+    yield;
   }
 
   choose(node: TreeNode): TreeNode {
@@ -102,28 +98,43 @@ export class MonteCarloTreeSearch implements Solver {
     return this.nodeRewards.get(node) ?? 0 / (this.nodeVisits.get(node) ?? 1);
   }
 
-  expand(node: TreeNode): void {
+  // eslint-disable-next-line
+  *expand(node: TreeNode) {
+    console.log("I'm in expand!");
     if (!this.nodeChildren.has(node)) {
       this.nodeChildren.set(node, node.children);
     }
+    yield;
   }
 
-  backup(path: Array<TreeNode>, reward: number): void {
+  // eslint-disable-next-line
+  *backup(path: Array<TreeNode>, reward: number) {
+    console.log("I'm in backup!");
     path.forEach((node) => {
       const actualVisitsNumber = this.nodeVisits.get(node) ?? 0 + 1;
       this.nodeVisits.set(node, actualVisitsNumber);
       const actualReward = this.nodeRewards.get(node) ?? 0 + reward;
       this.nodeRewards.set(node, actualReward);
     });
+    yield;
   }
 
   simulate(node: TreeNode): number {
+    console.log("I'm in simulate!");
     while (true) {
       if (node.children.length === 0) {
         return node.reward ?? 0;
       }
       node = node.findRandomChild();
     }
+  }
+
+  // eslint-disable-next-line
+  *simulateNumRolloutsTimes(leaf: TreeNode, numRollout: number, reward: number) {
+    for (let i = 0; i < numRollout; i += 1) {
+      reward += this.simulate(leaf);
+    }
+    yield;
   }
 
   uctSelect(node: TreeNode): TreeNode {

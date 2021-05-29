@@ -5,10 +5,11 @@ import { MonteCarloTreeSearch, MonteCarloTreeSearchHyperParams } from "./solverW
 export type AlghorithmRunParams = TreeBuildParams & MonteCarloTreeSearchHyperParams;
 
 export class AlgorithmRunnerWithSteps {
-  static run(runParams: AlghorithmRunParams): TreeNode {
+  // eslint-disable-next-line
+  static run(runParams: AlghorithmRunParams) {
     console.log("Run started with params: ", runParams);
     const tree = TreeBuilder.build(runParams);
     const solver = new MonteCarloTreeSearch();
-    return solver.run(tree, runParams).next().body;
+    return solver.run(tree, runParams);
   }
 }

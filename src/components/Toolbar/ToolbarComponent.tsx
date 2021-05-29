@@ -5,7 +5,8 @@ import { ToolbarProps } from "./ToolbarProps";
 
 function ToolbarF(props: ToolbarProps, ref?: React.Ref<HTMLDivElement>): JSX.Element {
   const [repeatLastRun] = useAlgorithmRunner();
-  const [runNextStep] = useAlgorithmRunnerWithSteps();
+  const generator = useAlgorithmRunnerWithSteps();
+
   return (
     <StyledToolbar {...props} ref={ref}>
       <RunButton onClick={() => repeatLastRun({ type: AlgorithmRunMode.PredefinedAlgorithm })}>
@@ -13,7 +14,7 @@ function ToolbarF(props: ToolbarProps, ref?: React.Ref<HTMLDivElement>): JSX.Ele
         <span>Repeat last run</span>
       </RunButton>
 
-      <NextButton onClick={runNextStep}>
+      <NextButton onClick={() => generator.next()}>
         <NextStepIcon />
         <span>Next step</span>
       </NextButton>
