@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import { AlghorithmRunParams } from "../logic/algo/runner";
+import { TreeNode } from "../logic/treeBuilder/treeNode";
 import { compiledCodeReducer } from "./compiledCodeReducer";
 import { runParamsReducer } from "./runParamsReducer";
 

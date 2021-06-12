@@ -61,7 +61,6 @@ export class SimpleGraph {
   ): { depth: number; visited: { [id: string]: boolean } } {
     const res: { depth: number; visited: { [id: string]: boolean } } = { depth: -1, visited };
     const childrenDepth: { [id: string]: number } = {};
-    // let maxChildrenDepth : number = 0;
     node.children.forEach((child) => {
       childrenDepth[child.id] = 0;
       return null;
