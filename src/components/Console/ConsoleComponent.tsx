@@ -1,7 +1,7 @@
 import * as _ from "lodash";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import MonacoEditor from "react-monaco-editor";
-import { useAlgorithmRunner } from "../../hooks/useAlghorithmRunner";
+import { useAlgorithmRunner } from "../../hooks/useAlgorithmRunner";
 import { ConsoleLogic } from "../../logic/console/consoleCommandHandler";
 import { AlgorithmCommand } from "../../logic/console/consoleCommands";
 import { initCompletion } from "./consoleCompletionConfig";
@@ -23,10 +23,11 @@ function ConsoleF(props: ConsoleProps, ref?: React.Ref<HTMLDivElement>): JSX.Ele
   const [content, setContent] = useState("");
 
   const [, runAlgoWithParams, lastRunResult] = useAlgorithmRunner();
-  
-  
+
   useEffect(() => {
-    setContent(prev => `${prev}\nAlgorithm finished search. Biggest reward in tree is ${lastRunResult}\n`);
+    setContent(
+      (prev) => `${prev}\nAlgorithm finished search. Biggest reward in tree is ${lastRunResult}\n`
+    );
   }, [lastRunResult]);
 
   const onContentChange = useCallback(

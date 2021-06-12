@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AlghorithmRunParams, AlgorithmRunner } from "../logic/algo/runner";
+import { AlghorithmRunParams as AlgorithmRunParams, AlgorithmRunner } from "../logic/algo/runner";
 import { ApplicationState } from "../state/appReducer";
 import { SetRunParams } from "../state/runParamsReducer";
 
@@ -21,7 +21,7 @@ type RunParams = RunWithPredefinedAlgoParams | RunWithUserAlgoParams;
 
 export function useAlgorithmRunner(): [
   repeatLastRun: (params: RunParams) => void,
-  runWithParams: (newParams: AlghorithmRunParams) => void,
+  runWithParams: (newParams: AlgorithmRunParams) => void,
   lastRunResult: number
 ] {
   const algoHyperParams = useSelector((state: ApplicationState) => state.lastRunParams);
@@ -30,7 +30,7 @@ export function useAlgorithmRunner(): [
   const dispatch = useDispatch();
 
   const executeAlgorithm = useCallback(
-    (algoParams: AlghorithmRunParams & RunParams) => {
+    (algoParams: AlgorithmRunParams & RunParams) => {
       let targetLeaf;
       switch (algoParams.type) {
         case AlgorithmRunMode.PredefinedAlgorithm:
@@ -48,7 +48,7 @@ export function useAlgorithmRunner(): [
   );
 
   const runWithParams = useCallback(
-    (newParams: AlghorithmRunParams) => {
+    (newParams: AlgorithmRunParams) => {
       executeAlgorithm({ ...newParams, type: AlgorithmRunMode.PredefinedAlgorithm });
       const action = SetRunParams(newParams);
       dispatch(action);
