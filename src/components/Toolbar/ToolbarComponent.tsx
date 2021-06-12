@@ -1,5 +1,6 @@
 import React from "react";
-import { AlgorithmRunMode, useAlgorithmRunner } from "../../hooks/useAlghorithmRunner";
+import { AlgorithmRunMode, useAlgorithmRunner } from "../../hooks/useAlgorithmRunner";
+import { useAlgorithmRunnerWithSteps } from "../../hooks/useAlgorithmRunnerWithSteps";
 import { NextButton, NextStepIcon, RunButton, RunCodeIcon, StyledToolbar } from "./styles";
 import { ToolbarProps } from "./ToolbarProps";
 

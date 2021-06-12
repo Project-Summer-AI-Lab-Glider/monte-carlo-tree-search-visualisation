@@ -1,7 +1,7 @@
 import * as monacoEditor from "monaco-editor/esm/vs/editor/editor.api";
 import React, { useEffect, useState } from "react";
 import MonacoEditor from "react-monaco-editor";
-import { AlgorithmRunMode, useAlgorithmRunner } from "../../hooks/useAlghorithmRunner";
+import { AlgorithmRunMode, useAlgorithmRunner } from "../../hooks/useAlgorithmRunner";
 import { useTypescriptEditor } from "../../hooks/useTypescriptEditor";
 import { AlgorithmCodePreprocessor } from "../../logic/codePreprocessor/codePreprocessor";
 import { RunButton, RunCodeIcon } from "../Toolbar/styles";

@@ -75,7 +75,7 @@ export class MonteCarloTreeSearch {
       }
       node = this.uctSelect(node);
     }
-    yield;
+    yield path;
   }
 
   choose(node: TreeNode): TreeNode {
@@ -100,23 +100,25 @@ export class MonteCarloTreeSearch {
 
   // eslint-disable-next-line
   *expand(node: TreeNode) {
-    console.log("I'm in expand!");
     if (!this.nodeChildren.has(node)) {
       this.nodeChildren.set(node, node.children);
+      yield node; // we informate user about what was affected in current step
     }
-    yield;
   }
 
   // eslint-disable-next-line
-  *backup(path: Array<TreeNode>, reward: number) {
-    console.log("I'm in backup!");
-    path.forEach((node) => {
+  *backup(path: Array<TreeNode>, reward: number): Generator<BackupInformation> {
+    for (let node of path) {
       const actualVisitsNumber = this.nodeVisits.get(node) ?? 0 + 1;
       this.nodeVisits.set(node, actualVisitsNumber);
       const actualReward = this.nodeRewards.get(node) ?? 0 + reward;
       this.nodeRewards.set(node, actualReward);
-    });
-    yield;
+      yield {
+        node,
+        actualVisitsNumber,
+        actualReward,
+      };
+    }
   }
 
   simulate(node: TreeNode): number {
@@ -130,11 +132,12 @@ export class MonteCarloTreeSearch {
   }
 
   // eslint-disable-next-line
-  *simulateNumRolloutsTimes(leaf: TreeNode, numRollout: number, reward: number) {
+  // TODO: reward is not changing here
+  *simulateNumRolloutsTimes(leaf: TreeNode, numRollout: number, reward: number): Generator<number> {
     for (let i = 0; i < numRollout; i += 1) {
       reward += this.simulate(leaf);
     }
-    yield;
+    yield reward;
   }
 
   uctSelect(node: TreeNode): TreeNode {
@@ -159,4 +162,10 @@ export class MonteCarloTreeSearch {
     const visitsOfNode = this.nodeVisits.get(childNode) ?? 1;
     return this.kernel(meanNodeValue, visitsOfNode, visitsOfParent);
   }
+}
+
+interface BackupInformation {
+  node: TreeNode;
+  actualVisitsNumber: number;
+  actualReward: number;
 }
