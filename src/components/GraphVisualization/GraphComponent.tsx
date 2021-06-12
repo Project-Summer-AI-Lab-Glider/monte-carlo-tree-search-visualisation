@@ -1,4 +1,4 @@
-import { Graph } from "react-d3-graph";
+import { Graph, GraphConfiguration } from "react-d3-graph";
 import { SimpleGraph } from "./SimpleGraph";
 import { Node } from "./Node";
 
@@ -16,7 +16,7 @@ export interface GraphData {
   links: GraphLink[];
 }
 
-const myConfig = {
+const graphConfig: Partial<GraphConfiguration<GraphNode, GraphLink>> = {
   nodeHighlightBehavior: true,
   node: {
     color: "lightgray",
@@ -65,8 +65,8 @@ function allocateNodes(data: GraphData) {
   const depth = simpleGraphFromData?.dfsCountDepth(root) ?? 0;
 
   // Hardcoded, intended to get the container size
-  const parentWidth = 700;
-  const parentHeight = 400;
+  const parentWidth = 1000;
+  const parentHeight = 600;
 
   let parentCellWidth = parentWidth;
 
@@ -115,7 +115,7 @@ export function GraphVis({ data }: { data: GraphData }): JSX.Element {
   return (
     <div>
       {allocateNodes(data)}
-      <Graph id="graph" data={data} config={myConfig} />
+      <Graph id="graph" data={data} config={graphConfig} />
     </div>
   );
 }

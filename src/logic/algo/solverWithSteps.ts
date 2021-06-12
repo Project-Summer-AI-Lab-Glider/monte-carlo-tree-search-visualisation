@@ -3,11 +3,11 @@ import { ubcKernel } from "./kernels";
 
 import * as _ from "lodash";
 import {
-  BackupStepReslut,
+  BackupStepResult,
   ExpansionStepResult,
   SelectionStepResult,
   SimulationStepResult,
-  SingleRunResult,
+  ResultReportStepResult,
   StepName,
   StepResult,
 } from "./stepModels";
@@ -62,8 +62,6 @@ export class MonteCarloTreeSearchWithSteps {
     yield* this.simulateNumRolloutsTimes(leaf, hyperParams.numRollout, reward);
 
     yield* this.backup(path, reward);
-
-    yield;
   }
 
   *select(node: TreeNode, path: TreeNode[]): Generator<SelectionStepResult> {
@@ -124,7 +122,7 @@ export class MonteCarloTreeSearchWithSteps {
     }
   }
 
-  *backup(path: Array<TreeNode>, reward: number): Generator<BackupStepReslut> {
+  *backup(path: Array<TreeNode>, reward: number): Generator<BackupStepResult> {
     for (let node of path) {
       const actualVisitsNumber = this.nodeVisits.get(node) ?? 0 + 1;
       this.nodeVisits.set(node, actualVisitsNumber);

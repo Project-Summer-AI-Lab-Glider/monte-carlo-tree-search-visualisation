@@ -8,14 +8,12 @@ export function IdleToolbarContent({ setToolbarMode }: BaseToolbarContentProps):
   const [repeatLastRun] = useAlgorithmRunner();
   return (
     <>
-      <RunButton>
-        <RunCodeIcon
-          onClick={() => repeatLastRun({ type: AlgorithmRunMode.PredefinedAlgorithm })}
-        />
+      <RunButton onClick={() => repeatLastRun({ type: AlgorithmRunMode.PredefinedAlgorithm })}>
+        <RunCodeIcon />
         <span>Run full algo</span>
       </RunButton>
-      <RunButton>
-        <RunCodeIcon onClick={() => setToolbarMode(ToolbarMode.StepByStepExecution)} />
+      <RunButton onClick={() => setToolbarMode(ToolbarMode.StepByStepExecution)}>
+        <RunCodeIcon />
         <span>Run step by step</span>
       </RunButton>
     </>

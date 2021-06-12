@@ -5,7 +5,7 @@ import { AlgorithmVisualiationWindowProps } from "./AlgorithmVisualiationWindowP
 import { StyledAlghorithmWindow } from "./styles";
 import { useActualTree } from "./useActualTree";
 
-const createNodeId = (ordinalNumber: number, parentNodeId: string): string =>
+export const createNodeId = (ordinalNumber: number, parentNodeId: string): string =>
   `${parentNodeId}_${ordinalNumber}`;
 
 function mapTreeToGraphData(

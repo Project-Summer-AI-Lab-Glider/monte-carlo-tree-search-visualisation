@@ -23,7 +23,7 @@ export class TreeBuilder {
       return root;
     }
     const subtree = _.range(0, branchFactor).map((_, index) =>
-      this.build({ branchFactor, treeDepth: treeDepth - 1 })
+      this.build({ branchFactor, treeDepth: treeDepth - 1 }, index, rootId)
     );
     return new TreeNode(subtree, rootId);
   }
