@@ -1,24 +1,25 @@
-import React from "react";
-import { AlgorithmRunMode, useAlgorithmRunner } from "../../hooks/useAlgorithmRunner";
-import { useAlgorithmRunnerWithSteps } from "../../hooks/useAlgorithmRunnerWithSteps";
-import { NextButton, NextStepIcon, RunButton, RunCodeIcon, StyledToolbar } from "./styles";
+import React, { useMemo, useState } from "react";
+import { IdleToolbarContent } from "./IdleToolbarContent";
+import { StepByStepToolbarContent } from "./StepByStepToolbarContent";
+import { StyledToolbar } from "./styles";
 import { ToolbarProps } from "./ToolbarProps";
 
+export enum ToolbarMode {
+  StepByStepExecution = "stepByStepExecution",
+  Idle = "idle",
+}
+
 function ToolbarF(props: ToolbarProps, ref?: React.Ref<HTMLDivElement>): JSX.Element {
-  const [repeatLastRun] = useAlgorithmRunner();
-  const generator = useAlgorithmRunnerWithSteps();
+  const [toolbarMode, setToolbarMode] = useState<ToolbarMode>(ToolbarMode.Idle);
+
+  const ModeMap = {
+    [ToolbarMode.StepByStepExecution]: <StepByStepToolbarContent setToolbarMode={setToolbarMode} />,
+    [ToolbarMode.Idle]: <IdleToolbarContent setToolbarMode={setToolbarMode} />,
+  };
 
   return (
     <StyledToolbar {...props} ref={ref}>
-      <RunButton onClick={() => repeatLastRun({ type: AlgorithmRunMode.PredefinedAlgorithm })}>
-        <RunCodeIcon />
-        <span>Repeat last run</span>
-      </RunButton>
-
-      <NextButton onClick={() => generator.next()}>
-        <NextStepIcon />
-        <span>Next step</span>
-      </NextButton>
+      {ModeMap[toolbarMode]}
     </StyledToolbar>
   );
 }
