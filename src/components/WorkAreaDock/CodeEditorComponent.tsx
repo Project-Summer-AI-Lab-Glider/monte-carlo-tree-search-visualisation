@@ -7,7 +7,8 @@ import { AlgorithmCodePreprocessor } from "../../logic/codePreprocessor/codePrep
 import { RunButton, RunCodeIcon } from "../Toolbar/styles";
 
 export function CodeEditor(): JSX.Element {
-  const [setEditor, compile, compiledCode] = useTypescriptEditor();
+  const [setEditor, compileAndRun, compiledCode] = useTypescriptEditor();
+
   const [repeatLastRun] = useAlgorithmRunner();
 
   const [content, setEditorContent] = useState(AlgorithmCodePreprocessor.getAlgorithmCode());
@@ -27,7 +28,7 @@ export function CodeEditor(): JSX.Element {
 
   return (
     <>
-      <RunButton onClick={compile}>
+      <RunButton onClick={compileAndRun}>
         <RunCodeIcon />
         <span>Compile & run</span>
       </RunButton>

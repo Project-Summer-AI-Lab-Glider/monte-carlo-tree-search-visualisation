@@ -9,7 +9,7 @@ export interface MonteCarloTreeSearchHyperParams {
   numIterations: number;
 }
 
-export class MonteCarloTreeSearch {
+export class MonteCarloTreeSearchWithSteps {
   private kernel: NonNullable<MonteCarloTreeSearchHyperParams["kernel"]> = ubcKernel;
 
   private nodeRewards: Map<TreeNode, number> = new Map();
@@ -164,7 +164,7 @@ export class MonteCarloTreeSearch {
   }
 }
 
-interface BackupInformation {
+export interface BackupInformation {
   node: TreeNode;
   actualVisitsNumber: number;
   actualReward: number;

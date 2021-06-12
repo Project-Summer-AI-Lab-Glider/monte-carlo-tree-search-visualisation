@@ -25,34 +25,36 @@ function ConsoleF(props: ConsoleProps, ref?: React.Ref<HTMLDivElement>): JSX.Ele
   const [, runAlgoWithParams, lastRunResult] = useAlgorithmRunner();
 
   useEffect(() => {
-    setContent(
-      (prev) => `${prev}\nAlgorithm finished search. Biggest reward in tree is ${lastRunResult}\n`
-    );
+    if (lastRunResult) {
+      setContent(
+        (prev) =>
+          `${prev}${
+            prev && !prev.endsWith("\n") ? "\n" : ""
+          }Algorithm finished search. Biggest reward in tree is ${lastRunResult}\n`
+      );
+    }
   }, [lastRunResult]);
 
-  const onContentChange = useCallback(
-    (editorContent: string) => {
-      const shouldExecuteCmd = editorContent.endsWith("\n");
-      if (!shouldExecuteCmd) {
-        return;
-      }
-      const lines = editorContent.split("\n");
-      const command = lines[lines.length - 2]; // last line is always empty
-      const commandObj = ConsoleLogic.parseCommand(command);
-      if (_.isNil(commandObj)) {
-        return;
-      }
-      switch (commandObj?.code) {
-        case AlgorithmCommand.RunAlgorithm:
-          runAlgoWithParams(commandObj.runParams);
-          break;
-        default:
-          break;
-      }
-      setContent((prev) => `${prev}${command}\nCommand ${command} was successfully executed ...\n`);
-    },
-    [runAlgoWithParams, setContent]
-  );
+  function onContentChange(editorContent: string) {
+    const shouldExecuteCmd = editorContent.endsWith("\n");
+    if (!shouldExecuteCmd) {
+      return;
+    }
+    const lines = editorContent.split("\n");
+    const command = lines[lines.length - 2]; // last line is always empty
+    const commandObj = ConsoleLogic.parseCommand(command);
+    if (_.isNil(commandObj)) {
+      return;
+    }
+    setContent((prev) => `${prev}${command}\n`);
+    switch (commandObj?.code) {
+      case AlgorithmCommand.RunAlgorithm:
+        runAlgoWithParams(commandObj.runParams);
+        break;
+      default:
+        break;
+    }
+  }
 
   return (
     <StyledConsole {...props} ref={ref}>

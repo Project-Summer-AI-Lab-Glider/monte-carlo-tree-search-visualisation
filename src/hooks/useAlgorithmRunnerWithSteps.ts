@@ -3,6 +3,8 @@ import { AlghorithmRunParams, AlgorithmRunnerWithSteps } from "../logic/algo/run
 import { initialRunParams } from "../state/runParamsReducer";
 
 export function useAlgorithmRunnerWithSteps(): Generator<unknown, unknown, unknown> {
-  const [generator, setGenerator] = useState(AlgorithmRunnerWithSteps.run(initialRunParams));
+  // TODO: params should depend on state
+  const [generator] = useState(AlgorithmRunnerWithSteps.createStepGenerator(initialRunParams));
+
   return generator;
 }
