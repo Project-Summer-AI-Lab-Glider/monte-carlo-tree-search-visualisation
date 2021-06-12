@@ -2,16 +2,18 @@ import { Graph } from "react-d3-graph";
 import { SimpleGraph } from "./SimpleGraph";
 import { Node } from "./Node";
 
+export interface GraphNode {
+  id: string;
+  x?: number;
+  y?: number;
+}
+export interface GraphLink {
+  source: string;
+  target: string;
+}
 export interface GraphData {
-  nodes: {
-    id: string;
-    x?: number;
-    y?: number;
-  }[];
-  links: {
-    source: string;
-    target: string;
-  }[];
+  nodes: GraphNode[];
+  links: GraphLink[];
 }
 
 const myConfig = {
@@ -55,19 +57,16 @@ function allocateNodes(data: GraphData) {
     targets.add(link.target);
   });
 
-  let root = "";
-  sources.forEach((source) => {
-    if (!targets.has(source)) {
-      root = source;
-    }
-  });
-
+  const root = [...sources].find((source) => !targets.has(source));
+  if (!root) {
+    return;
+  }
   const simpleGraphFromData = convertGraphDataToSimpleGraph(data);
-  const depth = simpleGraphFromData?.dfsCountDepth(root);
+  const depth = simpleGraphFromData?.dfsCountDepth(root) ?? 0;
 
   // Hardcoded, intended to get the container size
-  const parentWidth = 500;
-  const parentHeight = 200;
+  const parentWidth = 700;
+  const parentHeight = 400;
 
   let parentCellWidth = parentWidth;
 
@@ -82,7 +81,7 @@ function allocateNodes(data: GraphData) {
 
     for (let j = 0; j < siblingsCount!; j += 1) {
       let parentBorderX = 0;
-      if (layer![j]!.parent !== undefined) {
+      if (layer?.[j]?.parent !== undefined) {
         parentBorderX = layer![j]!.parent!.x - parentCellWidth / 2;
       }
       if (siblingsCount === 1) {

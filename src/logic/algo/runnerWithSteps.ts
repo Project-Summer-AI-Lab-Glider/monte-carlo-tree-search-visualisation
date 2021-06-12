@@ -1,15 +1,23 @@
 import { TreeBuilder, TreeBuildParams } from "../treeBuilder/treeBuilder";
 import { TreeNode } from "../treeBuilder/treeNode";
-import { MonteCarloTreeSearch, MonteCarloTreeSearchHyperParams } from "./solverWithSteps";
+import {
+  MonteCarloTreeSearchWithSteps,
+  MonteCarloTreeSearchHyperParams,
+  BackupInformation,
+} from "./solverWithSteps";
 
 export type AlghorithmRunParams = TreeBuildParams & MonteCarloTreeSearchHyperParams;
 
 export class AlgorithmRunnerWithSteps {
-  // eslint-disable-next-line
-  static run(runParams: AlghorithmRunParams) {
-    console.log("Run started with params: ", runParams);
+  static createStepGenerator(
+    runParams: AlghorithmRunParams
+  ): Generator<number | TreeNode | TreeNode[] | BackupInformation | undefined, void, unknown> {
+    console.log("Created generator for run with params: ", runParams);
+
     const tree = TreeBuilder.build(runParams);
-    const solver = new MonteCarloTreeSearch();
+
+    const solver = new MonteCarloTreeSearchWithSteps();
+
     return solver.run(tree, runParams);
   }
 }
