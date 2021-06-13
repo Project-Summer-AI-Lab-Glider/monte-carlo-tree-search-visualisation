@@ -70,7 +70,9 @@
     "no-case-declarations": "off",
     "max-classes-per-file": "off",
     "no-plusplus": "off",
-    "guard-for-in": "off"
+    "guard-for-in": "off",
+    "global-require": "off",
+    "@typescript-eslint/no-var-requires": "off"
   },
   "globals": {
     "React": true,
