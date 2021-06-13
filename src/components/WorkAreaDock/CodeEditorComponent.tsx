@@ -5,6 +5,7 @@ import { AlgorithmRunMode, useAlgorithmRunner } from "../../hooks/useAlgorithmRu
 import { useTypescriptEditor } from "../../hooks/useTypescriptEditor";
 import { AlgorithmCodePreprocessor } from "../../logic/codePreprocessor/codePreprocessor";
 import { RunButton, RunCodeIcon } from "../Toolbar/styles";
+import { CompilationErrorsModal } from "./CompilationErrorsModal";
 
 export function CodeEditor(): JSX.Element {
   const [setEditor, compileAndRun, compiledCode] = useTypescriptEditor();
@@ -32,6 +33,7 @@ export function CodeEditor(): JSX.Element {
         <RunCodeIcon />
         <span>Compile & run</span>
       </RunButton>
+      <CompilationErrorsModal />
       <MonacoEditor
         language="typescript"
         value={content}
