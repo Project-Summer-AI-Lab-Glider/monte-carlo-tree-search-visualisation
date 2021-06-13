@@ -4,13 +4,14 @@ import { CancelButton, CancelIcon, NextButton, NextStepIcon } from "./styles";
 import { ToolbarMode } from "./ToolbarComponent";
 import { BaseToolbarContentProps } from "./BaseToolbarContentProps";
 import { useDispatch } from "react-redux";
-import { SetStep } from "../../state/actualRunStepReducer";
+import { SetStep, ResetStepByStepRun } from "../../state/actualRunStepReducer";
 
 export function StepByStepToolbarContent({ setToolbarMode }: BaseToolbarContentProps): JSX.Element {
   const generator = useAlgorithmRunnerWithSteps();
   const dispatch = useDispatch();
 
   function endStepByStepExecution() {
+    dispatch(ResetStepByStepRun());
     setToolbarMode(ToolbarMode.Idle);
   }
 
