@@ -88,6 +88,7 @@ export class MonteCarloTreeSearchWithSteps {
       yield {
         step: StepName.Selection,
         selectedNodeToVisit: node,
+        alreadyVisitedNodes: this.nodeVisits,
       };
     }
   }

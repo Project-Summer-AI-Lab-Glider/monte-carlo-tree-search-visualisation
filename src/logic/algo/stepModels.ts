@@ -18,6 +18,7 @@ export type StepResult =
 export interface SelectionStepResult {
   step: StepName.Selection;
   selectedNodeToVisit: TreeNode;
+  alreadyVisitedNodes: Map<TreeNode, number>;
 }
 
 export interface ExpansionStepResult {

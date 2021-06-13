@@ -47,7 +47,11 @@ class GraphVisF extends React.Component<GraphVisProps> {
     graph.clearHighlight();
     switch (lastStepResult.step) {
       case StepName.Selection:
-        graph._setNodeHighlightedValue(lastStepResult.selectedNodeToVisit.id, true);
+        const { alreadyVisitedNodes } = lastStepResult;
+        Array.from(alreadyVisitedNodes.keys()).forEach((node) => {
+          graph._setNodeHighlightedValue((node as any).id, true);
+        });
+
         break;
       case StepName.Expansion:
         const subtree = lastStepResult.subtreeToExpand;
