@@ -12,6 +12,7 @@ export const TabHeader = styled(Tabs)`
     display: flex;
     justify-content: center;
     background-color: transparent;
+    font-family: "Scope One";
     & > span {
       max-width: 40px;
       width: 100%;

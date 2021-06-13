@@ -20,5 +20,5 @@ export const StyledHeader = styled.div`
 `;
 
 export const StyledLogo = styled.img`
-  margin-right: 20px;
+  margin: 20px;
 `;

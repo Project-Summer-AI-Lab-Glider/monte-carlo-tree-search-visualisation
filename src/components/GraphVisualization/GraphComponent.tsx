@@ -35,6 +35,7 @@ const graphConfig: Partial<GraphConfiguration<GraphNode, GraphLink>> = {
     highlightColor: "#FAB900",
   },
   height: 550,
+  width: window.innerWidth / 2,
 };
 
 interface GraphVisProps {
@@ -51,7 +52,7 @@ class GraphVisF extends React.Component<GraphVisProps> {
       case StepName.Selection:
         const { alreadyVisitedNodes } = lastStepResult;
         Array.from(alreadyVisitedNodes.keys()).forEach((node) => {
-          graph._setNodeHighlightedValue((node as any).id, true);
+          graph._setNodeHighlightedValue(node.id, true);
         });
 
         break;

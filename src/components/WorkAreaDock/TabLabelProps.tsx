@@ -12,7 +12,7 @@ export function TabLabel({ icon: Icon, text }: TabLabelProps): JSX.Element {
       <span style={{ marginRight: 10 }}>
         <Icon />
       </span>
-      <span>{text}</span>
+      <span style={{ fontFamily: "Scope One", fontSize: "16px" }}>{text}</span>
     </>
   );
 }
