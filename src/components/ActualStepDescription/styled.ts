@@ -6,7 +6,7 @@ import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import { SvgIconTypeMap } from "@material-ui/core/SvgIcon";
 
 export const Title = styled.span`
-  font-size: 20px;
+  font-size: 25px;
   color: #36454c;
   font-weight: 800;
   display: block;
@@ -14,7 +14,7 @@ export const Title = styled.span`
 `;
 
 export const Text = styled.span`
-  font-size: 12px;
+  font-size: 20px;
   color: #36454c;
   font-weight: 300;
   display: block;

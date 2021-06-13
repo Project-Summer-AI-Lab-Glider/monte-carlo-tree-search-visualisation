@@ -21,18 +21,20 @@ function TransitionComponent(props: TransitionProps): JSX.Element {
 
 interface RenderNodeProps {
   treeNode: TreeNode;
+  key?: string;
+  label?: string;
 }
-function RenderTreeNode({ treeNode }: RenderNodeProps): JSX.Element {
+function RenderTreeNode({ treeNode, key, label }: RenderNodeProps): JSX.Element {
   const treeItemProps: TreeItemProps = {
     nodeId: treeNode.id,
-    label: `Node: ${treeNode.id} ${
+    label: `${label ?? "Node :"} ${treeNode.id} ${
       treeNode.reward !== undefined ? `Reward: ${treeNode.reward}` : ""
     }`,
   };
   return (
-    <TreeItem {...treeItemProps} TransitionComponent={TransitionComponent}>
+    <TreeItem key={key} {...treeItemProps} TransitionComponent={TransitionComponent}>
       {treeNode.children.map((child) => (
-        <RenderTreeNode treeNode={child} />
+        <RenderTreeNode key={child.id} treeNode={child} />
       ))}
     </TreeItem>
   );
@@ -40,16 +42,17 @@ function RenderTreeNode({ treeNode }: RenderNodeProps): JSX.Element {
 
 interface RenderTreeProps {
   treeRoot: TreeNode;
+  label?: string;
 }
 
-export function RenderTree({ treeRoot }: RenderTreeProps): JSX.Element {
+export function RenderTree({ treeRoot, label }: RenderTreeProps): JSX.Element {
   return (
     <TreeView
       defaultEndIcon={<EndIcon />}
       defaultCollapseIcon={<CollapseIcon />}
       defaultExpandIcon={<ExpandIcon />}
     >
-      <RenderTreeNode treeNode={treeRoot} />
+      <RenderTreeNode label={label} treeNode={treeRoot} />
     </TreeView>
   );
 }
