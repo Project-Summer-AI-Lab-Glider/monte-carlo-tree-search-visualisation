@@ -64,7 +64,9 @@
     "no-eval": "off",
     "no-restricted-syntax": "off",
     "prefer-const": "off",
-    "react/no-children-prop": "off"
+    "react/no-children-prop": "off",
+    "global-require": "off",
+    "@typescript-eslint/no-var-requires": "off"
   },
   "globals": {
     "React": true,
