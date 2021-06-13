@@ -5,6 +5,7 @@ import Collapse from "@material-ui/core/Collapse";
 import TreeItem, { TreeItemProps } from "@material-ui/lab/TreeItem";
 import TreeView from "@material-ui/lab/TreeView";
 import { CollapseIcon, EndIcon, ExpandIcon } from "./styled";
+import { makeStyles } from "@material-ui/core/styles";
 
 function TransitionComponent(props: TransitionProps): JSX.Element {
   const style = useSpring({
@@ -19,12 +20,20 @@ function TransitionComponent(props: TransitionProps): JSX.Element {
   );
 }
 
+const useStyles = makeStyles({
+  label: {
+    fontFamily: "Scope One",
+    color: "#36454c",
+  },
+});
+
 interface RenderNodeProps {
   treeNode: TreeNode;
   key?: string;
   label?: string;
 }
 function RenderTreeNode({ treeNode, key, label }: RenderNodeProps): JSX.Element {
+  const classes = useStyles();
   const treeItemProps: TreeItemProps = {
     nodeId: treeNode.id,
     label: `${label ?? "Node :"} ${treeNode.id} ${
@@ -32,7 +41,12 @@ function RenderTreeNode({ treeNode, key, label }: RenderNodeProps): JSX.Element 
     }`,
   };
   return (
-    <TreeItem key={key} {...treeItemProps} TransitionComponent={TransitionComponent}>
+    <TreeItem
+      key={key}
+      {...treeItemProps}
+      TransitionComponent={TransitionComponent}
+      classes={{ label: classes.label }}
+    >
       {treeNode.children.map((child) => (
         <RenderTreeNode key={child.id} treeNode={child} />
       ))}

@@ -6,30 +6,32 @@ import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import { SvgIconTypeMap } from "@material-ui/core/SvgIcon";
 
 export const Title = styled.span`
-  font-size: 25px;
+  font-size: 130%;
   color: #36454c;
   font-weight: 800;
   display: block;
   text-align: center;
+  margin: 10px;
 `;
 
 export const Text = styled.span`
-  font-size: 20px;
+  font-size: 100%;
   color: #36454c;
   font-weight: 300;
   display: block;
+  margin: 10px;
 `;
 
 const IconFactory = (
   icon: OverridableComponent<SvgIconTypeMap<unknown, "svg">>,
-  fontSize = 20
+  fontSize = '100%'
 ) => styled(icon)`
   color: #36454c;
   &&& {
-    font-size: ${fontSize}px;
+    font-size: ${fontSize};
   }
 `;
 
-export const EndIcon = IconFactory(HighlightOffIcon, 15);
+export const EndIcon = IconFactory(HighlightOffIcon, '15px');
 export const ExpandIcon = IconFactory(ArrowRight);
 export const CollapseIcon = IconFactory(ArrowDown);

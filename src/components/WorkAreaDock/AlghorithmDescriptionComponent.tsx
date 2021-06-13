@@ -1,26 +1,17 @@
 import { TheoryContent } from "./TheoryContent";
-import WebFont from 'webfontloader';
-
-WebFont.load({
-   google: {
-     families: ['Scope One:400', 'sans-serif']
-   }
-});
 
 export function AlgorithmDescription(): JSX.Element {
   return (
     <div
       style={{
-        margin: "15px",
-        padding: "30px",
+        padding: "5%",
         overflowY: "scroll",
+        color: "#36454c",
         height: "75%",
-        fontFamily: "Scope One",
-        color: "#36454C",
-        textAlign: "justify"
+        textAlign: "justify",
       }}
     >
       <TheoryContent />
-    </div>)
-
+    </div>
+  );
 }

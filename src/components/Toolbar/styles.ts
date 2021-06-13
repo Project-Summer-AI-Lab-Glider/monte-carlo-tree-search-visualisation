@@ -13,7 +13,7 @@ export const StyledToolbar = styled(GridItem)<ToolbarProps>`
 `;
 
 const ButtonFactory = (btnColor: string) => styled(Button)`
-  width: 150px;
+  width: 160px;
   color: ${btnColor};
   &&& {
     margin: 10px;
@@ -25,11 +25,12 @@ const ButtonFactory = (btnColor: string) => styled(Button)`
     vertical-align: center;
     padding: 3px;
     outline: none;
-    font-size: 12px;
+    font-size: 13.5px;
     letter-spacing: 0.3px;
     justify-content: flex-start;
     border-radius: 0px;
     margin: 2px;
+    font-family: "Scope One";
 
     span {
       text-align: start;

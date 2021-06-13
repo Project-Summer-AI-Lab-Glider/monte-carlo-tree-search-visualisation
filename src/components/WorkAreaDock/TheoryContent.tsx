@@ -1,4 +1,4 @@
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from "react-markdown";
 
 const markdown = `
   
@@ -43,15 +43,15 @@ leaf node is assumed as zero right now. We want to know its real score. So let�
 random simulation! We dive into the tree, randomly picking the next node among its
 children. If the current node is terminal, we update the score.
 
-**4. Backup** - after *numRollout* simulations we increment the *nodeVisits* 🤝 for the
+**4. Backup** - after *numRollout* 🌀 simulations we increment the *nodeVisits* 🤝 for the
 leaf node and update the *nodeRewards* 🏆.  
  
 After *numIterations* 🔢 times of this process it’s possible to predict the best path to go!
 
 ---
 Happy coding! 🙂
-`
+`;
 
 export function TheoryContent(): JSX.Element {
-  return <ReactMarkdown children={markdown} />
+  return <ReactMarkdown children={markdown} />;
 }
