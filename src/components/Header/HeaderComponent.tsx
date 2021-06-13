@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../../assets/app-logo.svg";
 import { StyledHeader, StyledLabel, StyledLogo } from "./styles";
 
