@@ -39,6 +39,7 @@ export function CodeEditor(): JSX.Element {
         value={content}
         editorDidMount={onEditorMount}
         onChange={setEditorContent}
+        height="450"
       />
     </>
   );

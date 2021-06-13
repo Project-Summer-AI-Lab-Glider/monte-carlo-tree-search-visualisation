@@ -26,13 +26,15 @@ const graphConfig: Partial<GraphConfiguration<GraphNode, GraphLink>> = {
   nodeHighlightBehavior: true,
   highlightDegree: 0,
   node: {
-    color: "lightgray",
-    highlightColor: "orange",
+    color: "#eeeeee",
+    highlightColor: "#FAB900",
     size: 200,
+    fontColor: "#36454c",
   },
   link: {
-    highlightColor: "orange",
+    highlightColor: "#FAB900",
   },
+  height: 550,
 };
 
 interface GraphVisProps {
