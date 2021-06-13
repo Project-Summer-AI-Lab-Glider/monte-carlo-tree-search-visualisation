@@ -11,8 +11,8 @@ export function BackupDescription({
     <>
       <Title>Backup</Title>
       <Text>All visits number: {actualVisitsNumber}</Text>
-      <Text>Reward: {actualReward}</Text>
-      <RenderTree treeRoot={node} />
+      <Text> Actual run reward: {actualReward}</Text>
+      <RenderTree label="Actual tree state" treeRoot={node} />
     </>
   );
 }

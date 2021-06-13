@@ -64,7 +64,13 @@
     "no-eval": "off",
     "no-restricted-syntax": "off",
     "prefer-const": "off",
-    "react/no-children-prop": "off"
+    "react/no-children-prop": "off",
+    "react/no-string-refs": "off",
+    "no-underscore-dangle": "off",
+    "no-case-declarations": "off",
+    "max-classes-per-file": "off",
+    "no-plusplus": "off",
+    "guard-for-in": "off"
   },
   "globals": {
     "React": true,

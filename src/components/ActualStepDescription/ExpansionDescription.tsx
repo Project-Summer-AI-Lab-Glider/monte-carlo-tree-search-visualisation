@@ -6,11 +6,11 @@ import { Title } from "./styled";
 export function ExpansionDescription({
   stepResult,
 }: ComponentWithDescriptionOptions<ExpansionStepResult>): JSX.Element {
-  const { expandedNode } = stepResult;
+  const { subtreeToExpand: expandedNode } = stepResult;
   return (
     <>
       <Title>Expansion</Title>
-      <RenderTree treeRoot={expandedNode} />
+      <RenderTree label="Subtree to be expanded: " treeRoot={expandedNode} />
     </>
   );
 }

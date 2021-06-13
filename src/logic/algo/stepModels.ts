@@ -17,17 +17,18 @@ export type StepResult =
 
 export interface SelectionStepResult {
   step: StepName.Selection;
-  selectedPath: TreeNode[];
+  selectedNodeToVisit: TreeNode;
 }
 
 export interface ExpansionStepResult {
   step: StepName.Expansion;
-  expandedNode: TreeNode;
+  subtreeToExpand: TreeNode;
 }
 
 export interface SimulationStepResult {
   step: StepName.Simulation;
   reward: number;
+  simulationPath: TreeNode[];
 }
 
 export interface BackupStepResult {
