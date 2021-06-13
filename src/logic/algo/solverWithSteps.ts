@@ -2,6 +2,15 @@ import { TreeNode } from "../treeBuilder/treeNode";
 import { ubcKernel } from "./kernels";
 
 import * as _ from "lodash";
+import {
+  BackupStepResult,
+  ExpansionStepResult,
+  SelectionStepResult,
+  SimulationStepResult,
+  ResultReportStepResult,
+  StepName,
+  StepResult,
+} from "./stepModels";
 
 export interface MonteCarloTreeSearchHyperParams {
   kernel?: (meanNodeValue: number, visitsOfNode: number, visitsOfParent: number) => number;
@@ -18,8 +27,10 @@ export class MonteCarloTreeSearchWithSteps {
 
   private nodeChildren: Map<TreeNode, Array<TreeNode>> = new Map();
 
-  // eslint-disable-next-line
-  *run(root: TreeNode, hyperParams: MonteCarloTreeSearchHyperParams) {
+  *run(
+    root: TreeNode,
+    hyperParams: MonteCarloTreeSearchHyperParams
+  ): Generator<StepResult, void, unknown> {
     while (true) {
       for (const i of _.range(0, hyperParams.numIterations)) {
         yield* this.singleRun(root, hyperParams);
@@ -27,13 +38,18 @@ export class MonteCarloTreeSearchWithSteps {
 
       root = this.choose(root);
       if (root.children.length === 0) {
-        yield root;
+        yield {
+          step: StepName.ResultReport,
+          root,
+        };
       }
     }
   }
 
-  // eslint-disable-next-line
-  *singleRun(root: TreeNode, hyperParams: MonteCarloTreeSearchHyperParams) {
+  *singleRun(
+    root: TreeNode,
+    hyperParams: MonteCarloTreeSearchHyperParams
+  ): Generator<StepResult, void, unknown> {
     this.kernel = hyperParams.kernel ?? this.kernel;
 
     const path: TreeNode[] = [];
@@ -46,14 +62,9 @@ export class MonteCarloTreeSearchWithSteps {
     yield* this.simulateNumRolloutsTimes(leaf, hyperParams.numRollout, reward);
 
     yield* this.backup(path, reward);
-
-    yield;
   }
 
-  // eslint-disable-next-line
-  *select(node: TreeNode, path: TreeNode[]) {
-    console.log("I'm in select!");
-    console.log(this.nodeRewards);
+  *select(node: TreeNode, path: TreeNode[]): Generator<SelectionStepResult> {
     while (true) {
       path.push(node);
       if (!this.nodeChildren.has(node)) {
@@ -75,7 +86,10 @@ export class MonteCarloTreeSearchWithSteps {
       }
       node = this.uctSelect(node);
     }
-    yield path;
+    yield {
+      step: StepName.Selection,
+      selectedPath: path,
+    };
   }
 
   choose(node: TreeNode): TreeNode {
@@ -98,22 +112,24 @@ export class MonteCarloTreeSearchWithSteps {
     return this.nodeRewards.get(node) ?? 0 / (this.nodeVisits.get(node) ?? 1);
   }
 
-  // eslint-disable-next-line
-  *expand(node: TreeNode) {
+  *expand(node: TreeNode): Generator<ExpansionStepResult> {
     if (!this.nodeChildren.has(node)) {
       this.nodeChildren.set(node, node.children);
-      yield node; // we informate user about what was affected in current step
+      yield {
+        step: StepName.Expansion,
+        expandedNode: node,
+      };
     }
   }
 
-  // eslint-disable-next-line
-  *backup(path: Array<TreeNode>, reward: number): Generator<BackupInformation> {
+  *backup(path: Array<TreeNode>, reward: number): Generator<BackupStepResult> {
     for (let node of path) {
       const actualVisitsNumber = this.nodeVisits.get(node) ?? 0 + 1;
       this.nodeVisits.set(node, actualVisitsNumber);
       const actualReward = this.nodeRewards.get(node) ?? 0 + reward;
       this.nodeRewards.set(node, actualReward);
       yield {
+        step: StepName.Backup,
         node,
         actualVisitsNumber,
         actualReward,
@@ -122,7 +138,6 @@ export class MonteCarloTreeSearchWithSteps {
   }
 
   simulate(node: TreeNode): number {
-    console.log("I'm in simulate!");
     while (true) {
       if (node.children.length === 0) {
         return node.reward ?? 0;
@@ -131,13 +146,18 @@ export class MonteCarloTreeSearchWithSteps {
     }
   }
 
-  // eslint-disable-next-line
-  // TODO: reward is not changing here
-  *simulateNumRolloutsTimes(leaf: TreeNode, numRollout: number, reward: number): Generator<number> {
+  *simulateNumRolloutsTimes(
+    leaf: TreeNode,
+    numRollout: number,
+    reward: number
+  ): Generator<SimulationStepResult> {
     for (let i = 0; i < numRollout; i += 1) {
       reward += this.simulate(leaf);
+      yield {
+        step: StepName.Simulation,
+        reward,
+      };
     }
-    yield reward;
   }
 
   uctSelect(node: TreeNode): TreeNode {
@@ -162,10 +182,4 @@ export class MonteCarloTreeSearchWithSteps {
     const visitsOfNode = this.nodeVisits.get(childNode) ?? 1;
     return this.kernel(meanNodeValue, visitsOfNode, visitsOfParent);
   }
-}
-
-export interface BackupInformation {
-  node: TreeNode;
-  actualVisitsNumber: number;
-  actualReward: number;
 }

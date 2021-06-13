@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { AlghorithmRunParams, AlgorithmRunnerWithSteps } from "../logic/algo/runnerWithSteps";
+import { AlgorithmRunnerWithSteps } from "../logic/algo/runnerWithSteps";
+import { StepResult } from "../logic/algo/stepModels";
 import { initialRunParams } from "../state/runParamsReducer";
 
-export function useAlgorithmRunnerWithSteps(): Generator<unknown, unknown, unknown> {
+export function useAlgorithmRunnerWithSteps(): Generator<StepResult, void, unknown> {
   // TODO: params should depend on state
   const [generator] = useState(AlgorithmRunnerWithSteps.createStepGenerator(initialRunParams));
-
   return generator;
 }

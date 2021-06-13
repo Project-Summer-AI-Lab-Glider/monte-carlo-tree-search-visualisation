@@ -3,19 +3,24 @@ import { useAlgorithmRunnerWithSteps } from "../../hooks/useAlgorithmRunnerWithS
 import { CancelButton, CancelIcon, NextButton, NextStepIcon } from "./styles";
 import { ToolbarMode } from "./ToolbarComponent";
 import { BaseToolbarContentProps } from "./BaseToolbarContentProps";
+import { useDispatch } from "react-redux";
+import { SetStep } from "../../state/actualRunStepReducer";
 
 export function StepByStepToolbarContent({ setToolbarMode }: BaseToolbarContentProps): JSX.Element {
   const generator = useAlgorithmRunnerWithSteps();
+  const dispatch = useDispatch();
 
   function endStepByStepExecution() {
     setToolbarMode(ToolbarMode.Idle);
   }
 
   function runNextStep() {
-    const nextStepResult = generator.next();
-    console.log("Next step result: ", nextStepResult);
-    if (nextStepResult.done) {
+    const stepResult = generator.next();
+    console.log("Next step result: ", stepResult);
+    if (stepResult.done) {
       endStepByStepExecution();
+    } else {
+      dispatch(SetStep(stepResult.value));
     }
   }
 
