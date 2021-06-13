@@ -1,9 +1,10 @@
 import React, { useMemo, useState } from "react";
+import { saveAs } from "file-saver";
 import { IdleToolbarContent } from "./IdleToolbarContent";
 import { StepByStepToolbarContent } from "./StepByStepToolbarContent";
 import { StyledToolbar } from "./styles";
 import { ToolbarProps } from "./ToolbarProps";
-import { IconButton } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
 import HelpIcon from "@material-ui/icons/Help";
 import { HelpModal } from "./HelpModal";
 
@@ -24,10 +25,7 @@ function ToolbarF(props: ToolbarProps, ref?: React.Ref<HTMLDivElement>): JSX.Ele
   return (
     <StyledToolbar {...props} ref={ref}>
       {ModeMap[toolbarMode]}
-      <IconButton
-        style={{ marginLeft: "auto", marginRight: "8px", color: "lightgray" }}
-        onClick={() => setOpen(true)}
-      >
+      <IconButton style={{ color: "lightgray" }} onClick={() => setOpen(true)}>
         <HelpIcon />
       </IconButton>
       <HelpModal open={openModal} onClose={() => setOpen(false)} />

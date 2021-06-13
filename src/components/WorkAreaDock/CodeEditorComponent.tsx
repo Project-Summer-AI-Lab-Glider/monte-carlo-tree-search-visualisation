@@ -4,11 +4,13 @@ import MonacoEditor from "react-monaco-editor";
 import { AlgorithmRunMode, useAlgorithmRunner } from "../../hooks/useAlgorithmRunner";
 import { useTypescriptEditor } from "../../hooks/useTypescriptEditor";
 import { AlgorithmCodePreprocessor } from "../../logic/codePreprocessor/codePreprocessor";
-import { RunButton, RunCodeIcon } from "../Toolbar/styles";
+import { IconButton } from "@material-ui/core";
+import GetAppIcon from "@material-ui/icons/GetApp";
+import { RunButton, RunCodeIcon, StyledToolbar } from "../Toolbar/styles";
 import { CompilationErrorsModal } from "./CompilationErrorsModal";
 
 export function CodeEditor(): JSX.Element {
-  const [setEditor, compileAndRun, compiledCode] = useTypescriptEditor();
+  const [setEditor, compileAndRun, compiledCode, saveCode] = useTypescriptEditor();
 
   const [repeatLastRun] = useAlgorithmRunner();
 
@@ -29,11 +31,20 @@ export function CodeEditor(): JSX.Element {
 
   return (
     <>
-      <RunButton onClick={compileAndRun}>
-        <RunCodeIcon />
-        <span>Compile & run</span>
-      </RunButton>
-      <CompilationErrorsModal />
+      <StyledToolbar>
+        <RunButton onClick={compileAndRun}>
+          <RunCodeIcon />
+          <span>Compile & run</span>
+        </RunButton>
+        <CompilationErrorsModal />
+        <IconButton
+          size="small"
+          style={{ marginLeft: "auto", color: "lightgray" }}
+          onClick={saveCode}
+        >
+          <GetAppIcon />
+        </IconButton>
+      </StyledToolbar>
       <MonacoEditor
         language="typescript"
         value={content}
