@@ -63,7 +63,8 @@
     "no-cond-assign": "off",
     "no-eval": "off",
     "no-restricted-syntax": "off",
-    "prefer-const": "off"
+    "prefer-const": "off",
+    "react/no-children-prop": "off"
   },
   "globals": {
     "React": true,
