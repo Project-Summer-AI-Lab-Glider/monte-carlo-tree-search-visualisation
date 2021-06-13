@@ -85,11 +85,11 @@ export class MonteCarloTreeSearchWithSteps {
         break;
       }
       node = this.uctSelect(node);
+      yield {
+        step: StepName.Selection,
+        selectedNodeToVisit: node,
+      };
     }
-    yield {
-      step: StepName.Selection,
-      selectedPath: path,
-    };
   }
 
   choose(node: TreeNode): TreeNode {
@@ -117,7 +117,7 @@ export class MonteCarloTreeSearchWithSteps {
       this.nodeChildren.set(node, node.children);
       yield {
         step: StepName.Expansion,
-        expandedNode: node,
+        subtreeToExpand: node,
       };
     }
   }
@@ -137,25 +137,29 @@ export class MonteCarloTreeSearchWithSteps {
     }
   }
 
-  simulate(node: TreeNode): number {
+  simulate(node: TreeNode): [reward: number, path: TreeNode[]] {
+    const path: TreeNode[] = [node];
     while (true) {
       if (node.children.length === 0) {
-        return node.reward ?? 0;
+        return [node.reward ?? 0, path];
       }
       node = node.findRandomChild();
+      path.push(node);
     }
   }
 
   *simulateNumRolloutsTimes(
     leaf: TreeNode,
     numRollout: number,
-    reward: number
+    reward: number // TODO: investigate
   ): Generator<SimulationStepResult> {
     for (let i = 0; i < numRollout; i += 1) {
-      reward += this.simulate(leaf);
+      const [simulationReward, simulationPath] = this.simulate(leaf);
+      reward += simulationReward;
       yield {
         step: StepName.Simulation,
-        reward,
+        reward: simulationReward,
+        simulationPath,
       };
     }
   }

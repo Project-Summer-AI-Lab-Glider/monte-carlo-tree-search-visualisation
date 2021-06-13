@@ -6,6 +6,8 @@ import { CodeEditorProps } from "./CodeEditorProps";
 import { StyledWorkArea, TabHeader } from "./styles";
 import { LibraryBooks, Code } from "@material-ui/icons";
 import { TabLabel } from "./TabLabelProps";
+import { useDispatch } from "react-redux";
+import { ClearFileErrors } from "../../state/fileErrorsReducer";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -20,21 +22,23 @@ function TabPanel(props: TabPanelProps) {
 }
 
 function WorkAreaDockF(props: CodeEditorProps, ref?: React.Ref<HTMLDivElement>): JSX.Element {
-  const [value, setValue] = useState(0);
-  const handleChange = (event: React.ChangeEvent<Record<string, unknown>>, newValue: number) => {
-    setValue(newValue);
-  };
+  const [currentTab, setCurrentTab] = useState(0);
+  const dispatch = useDispatch();
+  function handleChange(event: React.ChangeEvent<Record<string, unknown>>, newValue: number) {
+    dispatch(ClearFileErrors());
+    setCurrentTab(newValue);
+  }
 
   return (
     <StyledWorkArea {...props} ref={ref}>
-      <TabHeader value={value} onChange={handleChange} aria-label="styled tabs example">
+      <TabHeader value={currentTab} onChange={handleChange} aria-label="styled tabs example">
         <Tab label={<TabLabel icon={Code} text="Code" />} />
         <Tab label={<TabLabel icon={LibraryBooks} text="Theory" />} />
       </TabHeader>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={currentTab} index={0}>
         <CodeEditor />
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel value={currentTab} index={1}>
         <AlgorithmDescription />
       </TabPanel>
     </StyledWorkArea>

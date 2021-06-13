@@ -6,13 +6,11 @@ import { Title } from "./styled";
 export function SelectionDescription({
   stepResult,
 }: ComponentWithDescriptionOptions<SelectionStepResult>): JSX.Element {
-  const { selectedPath } = stepResult;
+  const { selectedNodeToVisit } = stepResult;
   return (
     <>
       <Title>Selection</Title>
-      {selectedPath.map((node) => (
-        <RenderTree treeRoot={node} />
-      ))}
+      <RenderTree label="Node to visit: " treeRoot={selectedNodeToVisit} />
     </>
   );
 }

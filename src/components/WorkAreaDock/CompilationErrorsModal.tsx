@@ -1,20 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { ApplicationState } from "../../state/appReducer";
-import { CompilationError } from "../../state/fileErrorsReducer";
-import { ErrorText, Title } from "./styles";
+import { Title } from "./styles";
 import { Modal } from "./DefaultModal";
 import { Divider } from "@material-ui/core";
-
-function CompilationErrorDescription({
-  error,
-  key,
-}: {
-  error: CompilationError;
-  key: string;
-}): JSX.Element {
-  return <ErrorText key={key}>Error: {error.messageText}</ErrorText>;
-}
+import { CompilationErrorDescription } from "./CompilationErrorDescription";
 
 export function CompilationErrorsModal(): JSX.Element {
   const errors = useSelector((state: ApplicationState) => state.fileErrors);

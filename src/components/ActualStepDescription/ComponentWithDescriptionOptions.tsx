@@ -10,7 +10,9 @@ import { SimulationDescription } from "./SimulationDescription";
 export interface ComponentWithDescriptionOptions<T extends StepResult = StepResult> {
   stepResult: T;
 }
-export function StepDescription({ stepResult }: ComponentWithDescriptionOptions): JSX.Element {
+export function StepDescriptionSwitch({
+  stepResult,
+}: ComponentWithDescriptionOptions): JSX.Element {
   switch (stepResult.step) {
     case StepName.Selection:
       return <SelectionDescription stepResult={stepResult} />;
